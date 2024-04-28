@@ -15,6 +15,7 @@
 #include "m4a.h"
 #include "random.h"
 #include "decompress.h"
+#include "dynamic_palettes.h"
 #include "constants/songs.h"
 #include "intro_credits_graphics.h"
 #include "trig.h"
@@ -1149,6 +1150,8 @@ void CB2_InitCopyrightScreenAfterBootup(void)
         if (gSaveFileStatus == SAVE_STATUS_EMPTY || gSaveFileStatus == SAVE_STATUS_CORRUPT)
             Sav2_ClearSetDefault();
         SetPokemonCryStereo(gSaveBlock2Ptr->optionsSound);
+        // DYNPAL: Init on game startup
+        DynPal_InitAllDynamicPalettes();
         InitHeap(gHeap, HEAP_SIZE);
     }
 }

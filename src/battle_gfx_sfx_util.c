@@ -19,12 +19,14 @@
 #include "party_menu.h"
 #include "m4a.h"
 #include "decompress.h"
+#include "dynamic_palettes.h"
 #include "data.h"
 #include "palette.h"
 #include "contest.h"
 #include "constants/songs.h"
 #include "constants/rgb.h"
 #include "constants/battle_palace.h"
+#include "constants/trainers.h"
 
 extern const u8 gBattlePalaceNatureToMoveTarget[];
 extern const u8 * const gBattleAnims_General[];
@@ -713,8 +715,15 @@ void DecompressTrainerBackPic(u16 backPicId, u8 battlerId)
     DecompressPicFromTable_2(&gTrainerBackPicTable[backPicId],
                              gMonSpritesGfxPtr->sprites.ptr[position],
                              SPECIES_NONE);
-    LoadCompressedPalette(gTrainerBackPicPaletteTable[backPicId].data,
-                          OBJ_PLTT_ID(battlerId), PLTT_SIZE_4BPP);
+
+    // DYNPAL: Override pallete load for player back sprite (UPDATE IF USING RHH EXPANSION)
+    if (backPicId == TRAINER_BACK_PIC_BRENDAN || backPicId == TRAINER_BACK_PIC_MAY) {
+        DynPal_LoadPaletteByOffset(sDynPalPlayerBattleBack, OBJ_PLTT_ID(battlerId));
+    }
+    else {
+        LoadCompressedPalette(gTrainerBackPicPaletteTable[backPicId].data,
+            OBJ_PLTT_ID(battlerId), PLTT_SIZE_4BPP);
+    }
 }
 
 void BattleGfxSfxDummy3(u8 gender)

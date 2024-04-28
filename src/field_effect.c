@@ -1,5 +1,6 @@
 #include "global.h"
 #include "decompress.h"
+#include "dynamic_palettes.h"
 #include "event_object_movement.h"
 #include "field_camera.h"
 #include "field_control_avatar.h"
@@ -31,6 +32,7 @@
 #include "constants/metatile_behaviors.h"
 #include "constants/rgb.h"
 #include "constants/songs.h"
+#include "constants/trainers.h"
 
 #define subsprite_table(ptr) {.subsprites = ptr, .subspriteCount = (sizeof ptr) / (sizeof(struct Subsprite))}
 
@@ -888,7 +890,17 @@ bool8 FieldEffectActiveListContains(u8 id)
 u8 CreateTrainerSprite(u8 trainerSpriteID, s16 x, s16 y, u8 subpriority, u8 *buffer)
 {
     struct SpriteTemplate spriteTemplate;
-    LoadCompressedSpritePaletteOverrideBuffer(&gTrainerFrontPicPaletteTable[trainerSpriteID], buffer);
+
+    // DYNPAL: override palette
+    // NEEDS CHANGES IF USING RHH EXPANSION
+    if (trainerSpriteID == TRAINER_PIC_BRENDAN || trainerSpriteID == TRAINER_PIC_MAY)
+    {
+        DynPal_LoadPaletteByTag(sDynPalPlayerBattleFront, gTrainerFrontPicPaletteTable[trainerSpriteID].tag);
+    }
+    else
+    {
+        LoadCompressedSpritePaletteOverrideBuffer(&gTrainerFrontPicPaletteTable[trainerSpriteID], buffer);
+    }
     LoadCompressedSpriteSheetOverrideBuffer(&gTrainerFrontPicTable[trainerSpriteID], buffer);
     spriteTemplate.tileTag = gTrainerFrontPicTable[trainerSpriteID].tag;
     spriteTemplate.paletteTag = gTrainerFrontPicPaletteTable[trainerSpriteID].tag;
