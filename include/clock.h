@@ -5,5 +5,6 @@
 
 void InitTimeBasedEvents(void);
 void DoTimeBasedEvents(void);
+void FastForwardTime(s16, s16);
 
 #endif // GUARD_CLOCK_H
