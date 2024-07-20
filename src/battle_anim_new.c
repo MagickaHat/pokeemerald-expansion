@@ -3712,42 +3712,12 @@ const struct SpriteTemplate gMagicPowderBluePowderTemplate =
 };
 
 //dreepy missile
-const struct SpriteTemplate gDreepyMissilePlayerTemplate =
+const struct SpriteTemplate gDreepyMissileTemplate =
 {
     .tileTag = ANIM_TAG_DREEPY,
     .paletteTag = ANIM_TAG_DREEPY,
     .oam = &gOamData_AffineOff_ObjNormal_32x32,
-    .anims = gAnims_DreepyMissilePlayer,
-    .images = NULL,
-    .affineAnims = gDummySpriteAffineAnimTable,
-    .callback = AnimShadowBall
-};
-const struct SpriteTemplate gDreepyMissileOpponentTemplate =
-{
-    .tileTag = ANIM_TAG_DREEPY,
-    .paletteTag = ANIM_TAG_DREEPY,
-    .oam = &gOamData_AffineOff_ObjNormal_32x32,
-    .anims = gAnims_DreepyMissileOpponent,
-    .images = NULL,
-    .affineAnims = gDummySpriteAffineAnimTable,
-    .callback = AnimShadowBall
-};
-const struct SpriteTemplate gDreepyMissilePlayerShinyTemplate =
-{
-    .tileTag = ANIM_TAG_DREEPY,
-    .paletteTag = ANIM_TAG_DREEPY_SHINY,
-    .oam = &gOamData_AffineOff_ObjNormal_32x32,
-    .anims = gAnims_DreepyMissilePlayer,
-    .images = NULL,
-    .affineAnims = gDummySpriteAffineAnimTable,
-    .callback = AnimShadowBall
-};
-const struct SpriteTemplate gDreepyMissileOpponentShinyTemplate =
-{
-    .tileTag = ANIM_TAG_DREEPY,
-    .paletteTag = ANIM_TAG_DREEPY_SHINY,
-    .oam = &gOamData_AffineOff_ObjNormal_32x32,
-    .anims = gAnims_DreepyMissileOpponent,
+    .anims = gDummySpriteAnimTable,
     .images = NULL,
     .affineAnims = gDummySpriteAffineAnimTable,
     .callback = AnimShadowBall

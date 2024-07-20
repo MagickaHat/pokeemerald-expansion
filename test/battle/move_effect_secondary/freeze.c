@@ -7,11 +7,7 @@ ASSUMPTIONS
     ASSUME(gMovesInfo[MOVE_BLIZZARD].accuracy == 70);
 }
 
-#if B_USE_FROSTBITE == TRUE
-SINGLE_BATTLE_TEST("Powder Snow inflicts frostbite")
-#else
 SINGLE_BATTLE_TEST("Powder Snow inflicts freeze")
-#endif
 {
     GIVEN {
         PLAYER(SPECIES_WOBBUFFET);
@@ -22,15 +18,11 @@ SINGLE_BATTLE_TEST("Powder Snow inflicts freeze")
         ANIMATION(ANIM_TYPE_MOVE, MOVE_POWDER_SNOW, player);
         HP_BAR(opponent);
         ANIMATION(ANIM_TYPE_STATUS, B_ANIM_STATUS_FRZ, opponent);
-        FREEZE_OR_FROSTBURN_STATUS(opponent, TRUE);
+        STATUS_ICON(opponent, freeze: TRUE);
     }
 }
 
-#if B_USE_FROSTBITE == TRUE
-SINGLE_BATTLE_TEST("Powder Snow cannot frostbite an Ice-type Pokémon")
-#else
 SINGLE_BATTLE_TEST("Powder Snow cannot freeze an Ice-type Pokémon")
-#endif
 {
     GIVEN {
         ASSUME(gSpeciesInfo[SPECIES_SNORUNT].types[0] == TYPE_ICE);
@@ -43,7 +35,7 @@ SINGLE_BATTLE_TEST("Powder Snow cannot freeze an Ice-type Pokémon")
         HP_BAR(opponent);
         NONE_OF {
             ANIMATION(ANIM_TYPE_STATUS, B_ANIM_STATUS_FRZ, opponent);
-            FREEZE_OR_FROSTBURN_STATUS(opponent, TRUE);
+            STATUS_ICON(opponent, freeze: TRUE);
         }
     }
 }
@@ -76,17 +68,9 @@ SINGLE_BATTLE_TEST("Blizzard bypasses accuracy checks in Hail and Snow")
 }
 
 #if B_STATUS_TYPE_IMMUNITY > GEN_1
-#if B_USE_FROSTBITE == TRUE
-SINGLE_BATTLE_TEST("Freezing Glare should frostbite Psychic-types")
-#else
 SINGLE_BATTLE_TEST("Freezing Glare should freeze Psychic-types")
-#endif
-#else
-#if B_USE_FROSTBITE == TRUE
-SINGLE_BATTLE_TEST("Freezing Glare shouldn't freeze Psychic-types")
 #else
 SINGLE_BATTLE_TEST("Freezing Glare shouldn't freeze Psychic-types")
-#endif
 #endif
 {
     GIVEN {
@@ -102,11 +86,11 @@ SINGLE_BATTLE_TEST("Freezing Glare shouldn't freeze Psychic-types")
         HP_BAR(opponent);
         #if B_STATUS_TYPE_IMMUNITY > GEN_1
             ANIMATION(ANIM_TYPE_STATUS, B_ANIM_STATUS_FRZ, opponent);
-            FREEZE_OR_FROSTBURN_STATUS(opponent, TRUE);
+            STATUS_ICON(opponent, freeze: TRUE);
         #else
             NONE_OF {
                 ANIMATION(ANIM_TYPE_STATUS, B_ANIM_STATUS_FRZ, opponent);
-                FREEZE_OR_FROSTBURN_STATUS(opponent, TRUE);
+                STATUS_ICON(opponent, freeze: TRUE);
             }
         #endif
     }
