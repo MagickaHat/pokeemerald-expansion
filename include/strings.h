@@ -3046,4 +3046,13 @@ extern const u8 gText_PlantBerry[];
 extern const u8 gText_AM[];
 extern const u8 gText_PM[];
 
+// Start Menu time display
+extern const u8 gText_CurrentTime[];
+extern const u8 gText_CurrentTimeOff[];
+extern const u8 gText_CurrentTimeAM[];
+extern const u8 gText_CurrentTimeAMOff[];
+extern const u8 gText_CurrentTimePM[];
+extern const u8 gText_CurrentTimePMOff[];
+extern const u8 gText_ClockOption[];
+
 #endif // GUARD_STRINGS_H
