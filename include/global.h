@@ -181,7 +181,9 @@ struct SaveBlock3
 #if OW_USE_FAKE_RTC
     struct Time fakeRTC;
 #endif
+    u8 followerIndex;
 };
+
 
 extern struct SaveBlock3 *gSaveBlock3Ptr;
 

@@ -3055,4 +3055,16 @@ extern const u8 gText_CurrentTimePM[];
 extern const u8 gText_CurrentTimePMOff[];
 extern const u8 gText_ClockOption[];
 
+// Follower party menu
+extern const u8 gText_Follower[];
+extern const u8 gText_FollowerSet[];
+extern const u8 gText_FollowerReturn[];
+extern const u8 gText_FollowerUnset[];
+extern const u8 gText_FollowerPreferred[];
+extern const u8 gText_FollowerDefaulted[];
+extern const u8 gText_FollowerFainted[];
+extern const u8 gText_FollowerReturnedToBall[];
+extern const u8 gText_DoWhatWithFollower[];
+
+
 #endif // GUARD_STRINGS_H
