@@ -23754,6 +23754,10 @@ F_TRAINER_FEMALE |
             .lvl = 5,
             .nature = NATURE_HARDY,
             .dynamaxLevel = MAX_DYNAMAX_LEVEL,
+            .moves = {
+                MOVE_POUND,
+                MOVE_LEER,
+            },
             },
         },
     },
@@ -23894,6 +23898,10 @@ F_TRAINER_FEMALE |
             .lvl = 5,
             .nature = NATURE_HARDY,
             .dynamaxLevel = MAX_DYNAMAX_LEVEL,
+                .moves = {
+                MOVE_SCRATCH,
+                MOVE_GROWL,
+            },
             },
         },
     },
@@ -24034,6 +24042,10 @@ F_TRAINER_FEMALE |
             .lvl = 5,
             .nature = NATURE_HARDY,
             .dynamaxLevel = MAX_DYNAMAX_LEVEL,
+            .moves = {
+                MOVE_TACKLE,
+                MOVE_GROWL,
+            },
             },
         },
     },
@@ -24095,7 +24107,7 @@ F_TRAINER_FEMALE |
     [TRAINER_BRENDAN_ROUTE_119_TORCHIC] =
     {
 #line 9649
-        .trainerName = _("BRENDAN"),
+        .trainerName = _("Brendan"),
 #line 9650
         .trainerClass = TRAINER_CLASS_RIVAL,
 #line 9651
@@ -24149,7 +24161,7 @@ F_TRAINER_FEMALE |
     [TRAINER_MAY_ROUTE_103_MUDKIP] =
     {
 #line 9670
-        .trainerName = _("MAY"),
+        .trainerName = _("May"),
 #line 9671
         .trainerClass = TRAINER_CLASS_RIVAL,
 #line 9672
@@ -24176,6 +24188,10 @@ F_TRAINER_FEMALE |
             .lvl = 5,
             .nature = NATURE_HARDY,
             .dynamaxLevel = MAX_DYNAMAX_LEVEL,
+                .moves = {
+                MOVE_POUND,
+                MOVE_LEER,
+            },
             },
         },
     },
@@ -24183,7 +24199,7 @@ F_TRAINER_FEMALE |
     [TRAINER_MAY_ROUTE_110_MUDKIP] =
     {
 #line 9683
-        .trainerName = _("MAY"),
+        .trainerName = _("May"),
 #line 9684
         .trainerClass = TRAINER_CLASS_RIVAL,
 #line 9685
@@ -24239,7 +24255,7 @@ F_TRAINER_FEMALE |
     [TRAINER_MAY_ROUTE_119_MUDKIP] =
     {
 #line 9704
-        .trainerName = _("MAY"),
+        .trainerName = _("May"),
 #line 9705
         .trainerClass = TRAINER_CLASS_RIVAL,
 #line 9706
@@ -24295,7 +24311,7 @@ F_TRAINER_FEMALE |
     [TRAINER_MAY_ROUTE_103_TREECKO] =
     {
 #line 9725
-        .trainerName = _("MAY"),
+        .trainerName = _("May"),
 #line 9726
         .trainerClass = TRAINER_CLASS_RIVAL,
 #line 9727
@@ -24322,6 +24338,10 @@ F_TRAINER_FEMALE |
             .lvl = 5,
             .nature = NATURE_HARDY,
             .dynamaxLevel = MAX_DYNAMAX_LEVEL,
+                .moves = {
+                MOVE_SCRATCH,
+                MOVE_GROWL,
+            },
             },
         },
     },
@@ -24329,7 +24349,7 @@ F_TRAINER_FEMALE |
     [TRAINER_MAY_ROUTE_110_TREECKO] =
     {
 #line 9738
-        .trainerName = _("MAY"),
+        .trainerName = _("May"),
 #line 9739
         .trainerClass = TRAINER_CLASS_RIVAL,
 #line 9740
@@ -24385,7 +24405,7 @@ F_TRAINER_FEMALE |
     [TRAINER_MAY_ROUTE_119_TREECKO] =
     {
 #line 9759
-        .trainerName = _("MAY"),
+        .trainerName = _("May"),
 #line 9760
         .trainerClass = TRAINER_CLASS_RIVAL,
 #line 9761
@@ -24441,7 +24461,7 @@ F_TRAINER_FEMALE |
     [TRAINER_MAY_ROUTE_103_TORCHIC] =
     {
 #line 9780
-        .trainerName = _("MAY"),
+        .trainerName = _("May"),
 #line 9781
         .trainerClass = TRAINER_CLASS_RIVAL,
 #line 9782
@@ -24468,6 +24488,10 @@ F_TRAINER_FEMALE |
             .lvl = 5,
             .nature = NATURE_HARDY,
             .dynamaxLevel = MAX_DYNAMAX_LEVEL,
+                .moves = {
+                MOVE_TACKLE,
+                MOVE_GROWL,
+            },
             },
         },
     },
@@ -24475,7 +24499,7 @@ F_TRAINER_FEMALE |
     [TRAINER_MAY_ROUTE_110_TORCHIC] =
     {
 #line 9793
-        .trainerName = _("MAY"),
+        .trainerName = _("May"),
 #line 9794
         .trainerClass = TRAINER_CLASS_RIVAL,
 #line 9795
@@ -24531,7 +24555,7 @@ F_TRAINER_FEMALE |
     [TRAINER_MAY_ROUTE_119_TORCHIC] =
     {
 #line 9814
-        .trainerName = _("MAY"),
+        .trainerName = _("May"),
 #line 9815
         .trainerClass = TRAINER_CLASS_RIVAL,
 #line 9816
