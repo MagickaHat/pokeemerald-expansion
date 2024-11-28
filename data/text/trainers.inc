@@ -57,15 +57,15 @@ Route102_Text_RickPostBattle:
 	.string "If you lock eyes with a Trainer,\n"
 	.string "you have to challenge! It's a rule!$"
 
-Route102_Text_TIanaIntro:
+Route102_Text_TianaIntro:
 	.string "I'm going to keep winning and aim\n"
 	.string "to be the best Trainer.\p"
 	.string "Help me further my career!$"
 
-Route102_Text_TIanaDefeated:
+Route102_Text_TianaDefeated:
 	.string "I ended up furthering your career…$"
 
-Route102_Text_TIanaPostBattle:
+Route102_Text_TianaPostBattle:
 	.string "To keep winning my way up, I see that\n"
 	.string "I have to catch more Pokémon.$"
 
@@ -274,7 +274,7 @@ Route104_Text_MiaPostBattle:
 	.string "Mia: We will train our Pokémonmore\n"
 	.string "and be strong like you.$"
 
-Route104_Text_MIanotEnoughMons:
+Route104_Text_MiaNotEnoughMons:
 	.string "Mia: You want to battle with us?\p"
 	.string "It's a big no-no if you don't have two\n"
 	.string "Pokémon with you.\l"
@@ -415,15 +415,15 @@ Route104_Text_CindyPostRematch:
 	.string "“Hello” is the beginning of “good-bye.”\n"
 	.string "I hope we meet again.$"
 
-Route104_Text_DarIanIntro:
+Route104_Text_DarianIntro:
 	.string "I fished up a tough-looking Pokémon!\p"
 	.string "It has this magical quality to it!\n"
 	.string "It surely looks tough, yes it does!$"
 
-Route104_Text_DarIanDefeat:
+Route104_Text_DarianDefeat:
 	.string "What the…$"
 
-Route104_Text_DarIanPostBattle:
+Route104_Text_DarianPostBattle:
 	.string "Hey, Magikarp, you sure don't live up\n"
 	.string "to your name, do you?$"
 
@@ -1497,15 +1497,15 @@ Route111_Text_HaydenPostBattle:
 	.string "My stomach is grumbling!\n"
 	.string "Maybe I can grill some Berries…$"
 
-Route111_Text_BIancaIntro:
+Route111_Text_BiancaIntro:
 	.string "Did you come from Mauville?\n"
 	.string "Then you should be full of energy!$"
 
-Route111_Text_BIancaDefeat:
+Route111_Text_BiancaDefeat:
 	.string "Ooh lala!\n"
 	.string "That's a lot to take!$"
 
-Route111_Text_BIancaPostBattle:
+Route111_Text_BiancaPostBattle:
 	.string "This road here…\n"
 	.string "You have quite a ways to travel.$"
 
@@ -1733,7 +1733,7 @@ Route113_Text_TiaPostBattle:
 	.string "Tia: We have a lot of ashes!\n"
 	.string "I think enough for a WHITE FLUTE!$"
 
-Route113_Text_TIanotEnoughMons:
+Route113_Text_TiaNotEnoughMons:
 	.string "Tia: We want to battle 2-on-2.\n"
 	.string "If we don't, we won't win!$"
 
@@ -2098,7 +2098,7 @@ Route115_Text_CyndyPostRematch:
 	.string "enJoyment out of it.\l"
 	.string "It must be that I love Pokémon.$"
 
-Route115_Text_HecTorintro:
+Route115_Text_HectorIntro:
 	.string "I have a rare Pokémon!\n"
 	.string "Would you like me to show you?$"
 
@@ -2900,16 +2900,16 @@ Route119_Text_ChrisPostBattle:
 	.string "Then fish off its back…\p"
 	.string "It's an indescribably luxurIant moment!$"
 
-Route119_Text_FabIanIntro:
+Route119_Text_FabianIntro:
 	.string "Hit me with a power chord!\n"
 	.string "Victory is mine!\l"
 	.string "It's our time to shine, whoa, yeah!$"
 
-Route119_Text_FabIanDefeat:
+Route119_Text_FabianDefeat:
 	.string "You showed me who's the boss!\n"
 	.string "We'll have to take the loss, oh, no!$"
 
-Route119_Text_FabIanPostBattle:
+Route119_Text_FabianPostBattle:
 	.string "Hit me with another power chord!\n"
 	.string "Leave me alone!\l"
 	.string "Your win you have to atone!$"
@@ -4357,14 +4357,14 @@ Route130_Text_KatiePostBattle:
 	.string "of one day becoming\l"
 	.string "the Pokémon Champion.$"
 
-Route130_Text_SanTiagoIntro:
+Route130_Text_SantiagoIntro:
 	.string "Floating on the open sea like this…\n"
 	.string "It's peaceful.$"
 
-Route130_Text_SanTiagoDefeat:
+Route130_Text_SantiagoDefeat:
 	.string "I needed to be a little less peaceful!$"
 
-Route130_Text_SanTiagoPostBattle:
+Route130_Text_SantiagoPostBattle:
 	.string "Swimming and battling like this…\n"
 	.string "I'm one happy guy…$"
 
@@ -4681,7 +4681,7 @@ Route134_Text_JackPostBattle:
 	.string "I think Pokémonen Joy the fast-running\n"
 	.string "currents around these parts.$"
 
-Route134_Text_LauRelintro:
+Route134_Text_LaurelIntro:
 	.string "My Luvdisc are looking for a fun\n"
 	.string "match. Will you join us?$"
 
