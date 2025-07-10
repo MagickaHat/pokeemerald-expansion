@@ -81,6 +81,9 @@
 #define PYRAMID_BAG_ITEMS_COUNT 10
 #define ROAMER_COUNT 1 // Number of maximum concurrent active roamers
 
+//tx_registered_items_menu
+#define REGISTERED_ITEMS_MAX 10
+
 // Number of facilities for Ranking Hall.
 // 7 facilities for single mode + tower double mode + tower multi mode.
 // Excludes link modes. See RANKING_HALL_* in include/constants/battle_frontier.h
@@ -146,6 +149,7 @@
 #define OPTIONS_TEXT_SPEED_SLOW 0
 #define OPTIONS_TEXT_SPEED_MID 1
 #define OPTIONS_TEXT_SPEED_FAST 2
+#define OPTIONS_TEXT_SPEED_INSTANT 3
 
 #define OPTIONS_SOUND_MONO 0
 #define OPTIONS_SOUND_STEREO 1

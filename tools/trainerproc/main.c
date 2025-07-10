@@ -149,6 +149,10 @@ struct Trainer
 
     struct String pool_prune;
     int pool_prune_line;
+
+    //New
+    bool boss_trainer;
+    int boss_trainer_line;
 };
 
 static bool is_empty_string(struct String s)
@@ -1280,6 +1284,14 @@ static bool parse_trainer(struct Parser *p, const struct Parsed *parsed, struct 
             trainer->pool_prune_line = value.location.line;
             trainer->pool_prune = token_string(&value);
         }
+        else if (is_literal_token(&key, "Boss Trainer")) //New
+        {
+            if (trainer->boss_trainer_line)
+                any_error = !set_show_parse_error(p, key.location, "duplicate 'Boss Trainer'");
+            trainer->boss_trainer_line = value.location.line;
+            if (!token_bool(p, &value, &trainer->boss_trainer))
+                any_error = !show_parse_error(p);
+        }
         else
         {
             any_error = !set_show_parse_error(p, key.location, "expected one of 'Name', 'Class', 'Pic', 'Gender', 'Music', 'Items', 'Battle Type', 'Difficulty', 'Party Size', 'Pool Rules', 'Pool Pick Functions', 'Pool Prune' or 'AI'");
@@ -1834,6 +1846,14 @@ static void fprint_trainers(const char *output_path, FILE *f, struct Parsed *par
             fprintf(f, "#line %d\n", trainer->pool_rules_line);
             fprintf(f, "        .poolRuleIndex = ");
             fprint_constant(f, "POOL_RULESET", trainer->pool_rules);
+            fprintf(f, ",\n");
+        }
+
+        if (trainer->boss_trainer_line) //New
+        {
+            fprintf(f, "#line %d\n", trainer->boss_trainer_line);
+            fprintf(f, "        .isBossTrainer = ");
+            fprint_bool(f, trainer->boss_trainer);
             fprintf(f, ",\n");
         }
 

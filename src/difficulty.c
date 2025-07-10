@@ -6,16 +6,16 @@
 
 enum DifficultyLevel GetCurrentDifficultyLevel(void)
 {
-    if (!B_VAR_DIFFICULTY)
-        return DIFFICULTY_NORMAL;
+    /*if (!B_VAR_DIFFICULTY)
+        return DIFFICULTY_NORMAL;*/
 
     return VarGet(B_VAR_DIFFICULTY);
 }
 
 void SetCurrentDifficultyLevel(enum DifficultyLevel desiredDifficulty)
 {
-    if (!B_VAR_DIFFICULTY)
-        return;
+    /*if (!B_VAR_DIFFICULTY)
+        return;*/
 
     if (desiredDifficulty > DIFFICULTY_MAX)
         desiredDifficulty = DIFFICULTY_MAX;
@@ -56,8 +56,8 @@ void Script_IncreaseDifficulty(void)
 {
     enum DifficultyLevel currentDifficulty;
 
-    if (!B_VAR_DIFFICULTY)
-        return;
+    /*if (!B_VAR_DIFFICULTY)
+        return;*/
 
     currentDifficulty = GetCurrentDifficultyLevel();
 
@@ -74,8 +74,8 @@ void Script_DecreaseDifficulty(void)
 {
     enum DifficultyLevel currentDifficulty;
 
-    if (!B_VAR_DIFFICULTY)
-        return;
+    /*if (!B_VAR_DIFFICULTY)
+        return;*/
 
     currentDifficulty = GetCurrentDifficultyLevel();
 

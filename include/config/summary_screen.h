@@ -5,10 +5,10 @@
 #define P_SUMMARY_SCREEN_MOVE_RELEARNER  TRUE   // If TRUE, shows an option for Pokémon to relearn moves on the summary screen moves page.
 #define P_SUMMARY_MOVE_RELEARNER_FULL_PP TRUE   // If TRUE, the move relearner in the summary screen restores relearned moves' PP to full.
 #define P_SUMMARY_SCREEN_RENAME          TRUE   // If TRUE, an option to change Pokémon nicknames replaces the cancel prompt on the summary screen info page.
-#define P_SUMMARY_SCREEN_IV_EV_INFO      FALSE  // If TRUE, will allow player to cycle through the Stats, IVs, and EVs in the summary screen skills page.
+#define P_SUMMARY_SCREEN_IV_EV_INFO      TRUE  // If TRUE, will allow player to cycle through the Stats, IVs, and EVs in the summary screen skills page.
 #define P_SUMMARY_SCREEN_IV_EV_BOX_ONLY  FALSE  // If TRUE, will allow player to cycle through the Stats, IVs, and EVs in the summary screen skills page, but only in the PC storage box.
-#define P_SUMMARY_SCREEN_IV_EV_TILESET   FALSE  // If TRUE, loads an alternate tileset to allow changing the "STATS" label in the summary screen skills page. Note: if it's still loading the alternate tileset after changing this and recompiling, you may need a `make clean` before compilation.
-#define P_SUMMARY_SCREEN_IV_EV_VALUES    FALSE  // If TRUE, will show the actual IV value instead of the letter grade.
+#define P_SUMMARY_SCREEN_IV_EV_TILESET   TRUE  // If TRUE, loads an alternate tileset to allow changing the "STATS" label in the summary screen skills page. Note: if it's still loading the alternate tileset after changing this and recompiling, you may need a `make clean` before compilation.
+#define P_SUMMARY_SCREEN_IV_EV_VALUES    TRUE  // If TRUE, will show the actual IV value instead of the letter grade.
 /* 
 LETTER GRADE GUIDE:
 
@@ -26,5 +26,15 @@ Info taken from https://bulbapedia.bulbagarden.net/wiki/Stats_judge.
 
 // Flags
 #define P_FLAG_SUMMARY_SCREEN_IV_EV_INFO 0x20   // If this flag is set, will allow player to cycle through the Stats, IVs, and EVs in the summary screen skills page. Note: if P_SUMMARY_SCREEN_IV_EV_INFO is TRUE, this flag does nothing.
+
+//Summary Screen Expanded Branch
+//This should only be used if SUMMARY_SCREEN_EXPAND_ABILITY_DESCRIPTION is TRUE
+#define MAX_ABILITY_DESCRIPTION_LENGTH 96 //The maximum length of the ability description string, This is used to allocate memory for the string in the summary screen.
+#define MAX_MOVE_DESCRIPTION_LENGTH    96 //The maximum length of the move description string, This is used to allocate memory for the string in the summary screen.
+
+#define SUMMARY_SCREEN_MON_SHADOWS FALSE //If TRUE, the mon sprite will have a shadow loaded behind it.
+#define SUMMARY_SCREEN_EXPAND_ABILITY_DESCRIPTION FALSE //If TRUE, the ability description will be expanded to show the full description of the ability instead of just one line.
+#define SUMMARY_SCREEN_ABILITY_COLOR FALSE //If TRUE, the ability description will be have to its color changes if its a Hidden Ability.
+#define SUMMARY_SCREEN_BACKGROUND_COLOR FALSE //If TRUE, the background color of the summary screen will be changed when the mon is shiny.
 
 #endif // GUARD_CONFIG_SUMMARY_SCREEN_H

@@ -1,0 +1,487 @@
+raw`
+InsideOfTruck_MapScripts::
+	map_script MAP_SCRIPT_ON_LOAD, InsideOfTruck_OnLoad
+	map_script MAP_SCRIPT_ON_FRAME_TABLE, InsideOfTruck_OnFrame
+	map_script MAP_SCRIPT_ON_RESUME, InsideOfTruck_OnResume
+	.byte 0
+
+InsideOfTruck_OnLoad:
+	setmetatile 4, 1, METATILE_InsideOfTruck_ExitLight_Top, FALSE
+	setmetatile 4, 2, METATILE_InsideOfTruck_ExitLight_Mid, FALSE
+	setmetatile 4, 3, METATILE_InsideOfTruck_ExitLight_Bottom, FALSE
+	end
+
+InsideOfTruck_OnFrame:
+	map_script_2 VAR_REGION_CHECK, 0, InsideOfTruck_EventScript_StartSettingsMenu @MinimalGrindingAsk
+	.2byte 0
+
+InsideOfTruck_OnResume:
+	setstepcallback STEP_CB_TRUCK
+	end
+
+InsideOfTruck_EventScript_SetIntroFlags::
+	lockall
+	setflag FLAG_HIDE_MAP_NAME_POPUP
+	checkplayergender
+	goto_if_eq VAR_RESULT, MALE, InsideOfTruck_EventScript_SetIntroFlagsMale
+	goto_if_eq VAR_RESULT, FEMALE, InsideOfTruck_EventScript_SetIntroFlagsFemale
+	end
+
+InsideOfTruck_EventScript_SetIntroFlagsMale::
+	setrespawn HEAL_LOCATION_LITTLEROOT_TOWN_BRENDANS_HOUSE_2F
+	setvar VAR_LITTLEROOT_INTRO_STATE, 1
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_MOM
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_TRUCK
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_RIVAL_MOM
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_RIVAL_SIBLING
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_2F_POKE_BALL
+	setvar VAR_LITTLEROOT_HOUSES_STATE_BRENDAN, 1
+	setdynamicwarp MAP_LITTLEROOT_TOWN, 3, 10
+	releaseall
+	end
+
+InsideOfTruck_EventScript_SetIntroFlagsFemale::
+	setrespawn HEAL_LOCATION_LITTLEROOT_TOWN_MAYS_HOUSE_2F
+	setvar VAR_LITTLEROOT_INTRO_STATE, 2
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_MOM
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_TRUCK
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_RIVAL_MOM
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_RIVAL_SIBLING
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_2F_POKE_BALL
+	setvar VAR_LITTLEROOT_HOUSES_STATE_MAY, 1
+	setdynamicwarp MAP_LITTLEROOT_TOWN, 12, 10
+	releaseall
+	end
+
+InsideOfTruck_EventScript_MovingBox::
+	msgbox InsideOfTruck_Text_BoxPrintedWithMonLogo, MSGBOX_SIGN
+	end
+
+ChooseStarterSet::
+	lock
+	message KaixerHello
+	waitmessage
+	dynmultichoice 0,0,FALSE,6,0,DYN_MULTICHOICE_CB_NONE, StarterRegionStringKanto, StarterRegionStringJohto, StarterRegionStringHoenn, StarterRegionStringSinnoh, StarterRegionStringUnova, StarterRegionStringKalos, StarterRegionStringAlola, StarterRegionStringGalar, StarterRegionStringPaldea
+	switch VAR_RESULT
+	case 0, LittlerootTown_BrendansHouse_1F_EventScript_Kanto
+	case 1, LittlerootTown_BrendansHouse_1F_EventScript_Johto
+	case 2, LittlerootTown_BrendansHouse_1F_EventScript_Hoenn
+	case 3, LittlerootTown_BrendansHouse_1F_EventScript_Sinnoh
+	case 4, LittlerootTown_BrendansHouse_1F_EventScript_Unova
+	case 5, LittlerootTown_BrendansHouse_1F_EventScript_Kalos
+	case 6, LittlerootTown_BrendansHouse_1F_EventScript_Alola
+	case 7, LittlerootTown_BrendansHouse_1F_EventScript_Galar
+	case 8, LittlerootTown_BrendansHouse_1F_EventScript_Paldea
+	end
+
+LittlerootTown_BrendansHouse_1F_EventScript_Kanto:
+	msgbox RivalsHouse_1F_Text_SureAboutRegion, MSGBOX_YESNO
+	compare VAR_RESULT, NO
+	goto_if_eq ChooseStarterSet
+	setvar VAR_REGION_CHOICE, 1
+	bufferstring 1, StarterRegionStringKanto
+	setvar VAR_REGION_CHECK, 1
+	goto InsideOfTruck_EventScript_SaveSettingsDone_1_Continue
+
+LittlerootTown_BrendansHouse_1F_EventScript_Johto:
+	msgbox RivalsHouse_1F_Text_SureAboutRegion, MSGBOX_YESNO
+	compare VAR_RESULT, NO
+	goto_if_eq ChooseStarterSet
+	setvar VAR_REGION_CHOICE, 2
+	bufferstring 1, StarterRegionStringJohto
+	setvar VAR_REGION_CHECK, 1
+	goto InsideOfTruck_EventScript_SaveSettingsDone_1_Continue
+
+LittlerootTown_BrendansHouse_1F_EventScript_Hoenn:
+	msgbox RivalsHouse_1F_Text_SureAboutRegion, MSGBOX_YESNO
+	compare VAR_RESULT, NO
+	goto_if_eq ChooseStarterSet
+	setvar VAR_REGION_CHOICE, 3
+	bufferstring 1, StarterRegionStringHoenn
+	setvar VAR_REGION_CHECK, 1
+	goto InsideOfTruck_EventScript_SaveSettingsDone_1_Continue
+
+LittlerootTown_BrendansHouse_1F_EventScript_Sinnoh:
+	msgbox RivalsHouse_1F_Text_SureAboutRegion, MSGBOX_YESNO
+	compare VAR_RESULT, NO
+	goto_if_eq ChooseStarterSet
+	setvar VAR_REGION_CHOICE, 4
+	bufferstring 1, StarterRegionStringSinnoh
+	setvar VAR_REGION_CHECK, 1
+	goto InsideOfTruck_EventScript_SaveSettingsDone_1_Continue
+
+LittlerootTown_BrendansHouse_1F_EventScript_Unova:
+	msgbox RivalsHouse_1F_Text_SureAboutRegion, MSGBOX_YESNO
+	compare VAR_RESULT, NO
+	goto_if_eq ChooseStarterSet
+	setvar VAR_REGION_CHOICE, 5
+	bufferstring 1, StarterRegionStringUnova
+	setvar VAR_REGION_CHECK, 1
+	goto InsideOfTruck_EventScript_SaveSettingsDone_1_Continue
+
+LittlerootTown_BrendansHouse_1F_EventScript_Kalos:
+	msgbox RivalsHouse_1F_Text_SureAboutRegion, MSGBOX_YESNO
+	compare VAR_RESULT, NO
+	goto_if_eq ChooseStarterSet
+	setvar VAR_REGION_CHOICE, 6
+	bufferstring 1, StarterRegionStringKalos
+	setvar VAR_REGION_CHECK, 1
+	goto InsideOfTruck_EventScript_SaveSettingsDone_1_Continue
+
+LittlerootTown_BrendansHouse_1F_EventScript_Alola:
+	msgbox RivalsHouse_1F_Text_SureAboutRegion, MSGBOX_YESNO
+	compare VAR_RESULT, NO
+	goto_if_eq ChooseStarterSet
+	setvar VAR_REGION_CHOICE, 7
+	bufferstring 1, StarterRegionStringAlola
+	setvar VAR_REGION_CHECK, 1
+	goto InsideOfTruck_EventScript_SaveSettingsDone_1_Continue
+
+LittlerootTown_BrendansHouse_1F_EventScript_Galar:
+	msgbox RivalsHouse_1F_Text_SureAboutRegion, MSGBOX_YESNO
+	compare VAR_RESULT, NO
+	goto_if_eq ChooseStarterSet
+	setvar VAR_REGION_CHOICE, 8
+	bufferstring 1, StarterRegionStringGalar
+	setvar VAR_REGION_CHECK, 1
+	goto InsideOfTruck_EventScript_SaveSettingsDone_1_Continue
+
+LittlerootTown_BrendansHouse_1F_EventScript_Paldea:
+	msgbox RivalsHouse_1F_Text_SureAboutRegion, MSGBOX_YESNO
+	compare VAR_RESULT, NO
+	goto_if_eq ChooseStarterSet
+	setvar VAR_REGION_CHOICE, 9
+	bufferstring 1, StarterRegionStringPaldea
+	setvar VAR_REGION_CHECK, 1
+	goto InsideOfTruck_EventScript_SaveSettingsDone_1_Continue
+
+StarterRegionStringKanto:
+	.string "Kanto$"
+
+StarterRegionStringJohto:
+	.string "Johto$"
+
+StarterRegionStringHoenn:
+	.string "Hoenn$"
+
+StarterRegionStringSinnoh:
+	.string "Sinnoh$"
+
+StarterRegionStringUnova:
+	.string "Unova$"
+
+StarterRegionStringKalos:
+	.string "Kalos$"
+
+StarterRegionStringAlola:
+	.string "Alola$"
+
+StarterRegionStringGalar:
+	.string "Galar$"
+
+StarterRegionStringPaldea:
+	.string "Paldea$"
+
+InsideOfTruck_Text_BoxPrintedWithMonLogo:
+	.string "The box is printed with a Pokémon logo.\p"
+	.string "It's a Pokémon brand moving and\n"
+	.string "delivery service.$"
+`
+
+text RivalsHouse_1F_Text_SureAboutRegion{
+	"Are you sure about the region?"
+}
+
+text RivalsHouse_1F_Text_Which_Region{
+	"Oh, darn. Which region was it again?"
+}
+
+script InsideOfTruck_EventScript_FadeToBlack{
+	fadescreen(FADE_TO_BLACK)
+	release
+	end
+}
+
+script InsideOfTruck_EventScript_StartSettingsMenu {
+	lock
+	fadescreen(FADE_TO_BLACK)
+	msgbox(format("Please stop smashing {A_BUTTON} and properly answer the following questions."), MSGBOX_DEFAULT)
+	msgbox(format("Would you like to play {COLOR GREEN}{SHADOW LIGHT_GREEN}Dynastic Emerald {COLOR DARK_GRAY}{SHADOW LIGHT_GRAY}with custom options enabled?"), MSGBOX_YESNO)	
+	if(var(VAR_RESULT) == YES)
+	{
+		goto(InsideOfTruck_EventScript_StartSettingsMenu_Continue)
+	}
+	else
+	{
+		goto(InsideOfTruck_EventScript_SaveSettingsDone_1)
+	}
+
+}
+script InsideOfTruck_EventScript_StartSettingsMenu_Continue {
+	message(format("Press {A_BUTTON} to select an Option."))
+	waitmessage
+
+	dynmultipush("Difficulty Options", 0)
+	dynmultipush("Miscellaneous", 1)
+	dynmultipush("Done", 127)
+	
+	// setting initial selected to a non-existant ID will always have it point to the first option
+	//.macro dynmultistack left:req, top:req, ignoreBPress:req, maxBeforeScroll:req, shouldSort:req, initialSelected:req, callbacks:req
+	dynmultistack(0, 0, TRUE, 6, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
+
+	if (var(VAR_RESULT) == 0)
+	{
+		goto(InsideOfTruck_EventScript_SaveSettingsMenu_DifficultyOptions)
+	}
+
+	if(var(VAR_RESULT) == 1)
+	{
+		goto(InsideOfTruck_EventScript_SaveSettingsMenu_Miscellaneous)
+	}
+
+	if (var(VAR_RESULT) == 127) 
+	{
+		goto(InsideOfTruck_EventScript_SaveSettingsDone_2)
+	}
+}
+
+script InsideOfTruck_EventScript_SaveSettingsMenu_DifficultyOptions{
+	message(format("Press {A_BUTTON} to select an Option."))
+	waitmessage
+
+	getdifficulty(VAR_DIFFICULTY)
+	if((var(VAR_RESULT) == 1))
+	{
+		dynmultipush("{COLOR GREEN}{SHADOW LIGHT_GREEN}Normal Mode", 0)
+	}
+	else
+	{
+		dynmultipush("{COLOR RED}{SHADOW LIGHT_RED}Normal Mode", 0)
+	}
+	if(var(VAR_RESULT) == 0)
+	{
+		dynmultipush("{COLOR GREEN}{SHADOW LIGHT_GREEN}Easy Mode", 1)
+	}
+	else
+	{
+		dynmultipush("{COLOR RED}{SHADOW LIGHT_RED}Easy Mode", 1)
+	}
+	if(flag(FLAG_MINIMAL_GRINDING_MODE))
+	{
+		dynmultipush("{COLOR GREEN}{SHADOW LIGHT_GREEN}Minimal Grinding Mode", 2)
+	}
+	else
+	{
+		dynmultipush("{COLOR RED}{SHADOW LIGHT_RED}Minimal Grinding Mode", 2)
+	}
+	if(flag(FLAG_VGC_MODE))
+	{
+		dynmultipush("{COLOR GREEN}{SHADOW LIGHT_GREEN}Doubles Mode", 3)
+	}
+	else
+	{
+		dynmultipush("{COLOR RED}{SHADOW LIGHT_RED}Doubles Mode", 3)
+	}
+		dynmultipush("Return", 127)
+
+	// setting initial selected to a non-existant ID will always have it point to the first option
+	//.macro dynmultistack left:req, top:req, ignoreBPress:req, maxBeforeScroll:req, shouldSort:req, initialSelected:req, callbacks:req
+	dynmultistack(0, 0, TRUE, 6, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
+
+	if(var(VAR_RESULT) == 0)
+	{
+		setdifficulty(DIFFICULTY_NORMAL)
+		msgbox(format("Normal Mode is {COLOR GREEN}{SHADOW LIGHT_GREEN}Enabled."))
+		goto(InsideOfTruck_EventScript_SaveSettingsMenu_DifficultyOptions)
+	}
+
+	if(var(VAR_RESULT) == 1)
+	{
+		setdifficulty(DIFFICULTY_EASY) 
+		msgbox(format("Easy Mode is {COLOR GREEN}{SHADOW LIGHT_GREEN}Enabled."))
+		goto(InsideOfTruck_EventScript_SaveSettingsMenu_DifficultyOptions)
+	}
+
+	if (var(VAR_RESULT) == 2)
+	{
+		if(flag(FLAG_MINIMAL_GRINDING_MODE))
+		{
+			clearflag(FLAG_MINIMAL_GRINDING_MODE)
+			msgbox(format("Minimal Grinding Mode is {COLOR RED}{SHADOW LIGHT_RED}Disabled."))
+			goto(InsideOfTruck_EventScript_SaveSettingsMenu_DifficultyOptions)
+		}
+		else
+		{
+			msgbox(ModesCheck_Text_MinimalGrinding, MSGBOX_YESNO)
+			if(var(VAR_RESULT) == YES)
+			{
+				setflag(FLAG_MINIMAL_GRINDING_MODE)
+				msgbox(format("Minimal Grinding Mode is {COLOR GREEN}{SHADOW LIGHT_GREEN}Enabled."))
+				goto(InsideOfTruck_EventScript_SaveSettingsMenu_DifficultyOptions)
+			}
+			else
+			{
+				goto(InsideOfTruck_EventScript_SaveSettingsMenu_DifficultyOptions)
+			}
+		}
+	}
+
+	if(var(VAR_RESULT ) == 3)
+	{
+		if(flag(FLAG_VGC_MODE))
+		{
+			clearflag(FLAG_VGC_MODE)
+			msgbox(format("Doubles Mode is {COLOR RED}{SHADOW LIGHT_RED}Disabled."))
+			goto(InsideOfTruck_EventScript_StartSettingsMenu_Continue)
+		}
+		else
+		{
+			msgbox(ModesCheck_Text_DoublesOnly, MSGBOX_YESNO)
+			if(var(VAR_RESULT) == YES)
+			{
+				setflag(FLAG_VGC_MODE)
+				msgbox(format("Doubles Mode is {COLOR GREEN}{SHADOW LIGHT_GREEN}Enabled."))
+				goto(InsideOfTruck_EventScript_SaveSettingsMenu_DifficultyOptions)
+			}
+			else
+			{
+				goto(InsideOfTruck_EventScript_SaveSettingsMenu_DifficultyOptions)
+			}
+		}
+	}
+
+	if (var(VAR_RESULT) == 127) 
+	{
+		goto(InsideOfTruck_EventScript_StartSettingsMenu_Continue)
+	}
+
+}
+
+script InsideOfTruck_EventScript_SaveSettingsMenu_Miscellaneous{
+	message(format("Press {A_BUTTON} to select an Option."))
+	waitmessage
+	
+	if(flag(EZLEVELING_CODE))
+	{
+		dynmultipush("{COLOR GREEN}{SHADOW LIGHT_GREEN}EZLeveling", 0)
+	}
+	else
+	{
+		dynmultipush("{COLOR RED}{SHADOW LIGHT_RED}EZLeveling", 0)
+	}
+	if(flag(EZCATCH_CODE))
+	{
+		dynmultipush("{COLOR GREEN}{SHADOW LIGHT_GREEN}EZCatch", 1)
+	}
+	else
+	{
+		dynmultipush("{COLOR RED}{SHADOW LIGHT_RED}EZCatch", 1)
+	}
+	if(flag(DEXALL_CODE))
+	{
+		dynmultipush("{COLOR GREEN}{SHADOW LIGHT_GREEN}DexAll", 2)
+	}
+	else
+	{
+		dynmultipush("{COLOR RED}{SHADOW LIGHT_RED}DexAll", 2)
+	}
+		dynmultipush("Return", 127)
+
+	// setting initial selected to a non-existant ID will always have it point to the first option
+	//.macro dynmultistack left:req, top:req, ignoreBPress:req, maxBeforeScroll:req, shouldSort:req, initialSelected:req, callbacks:req
+	dynmultistack(0, 0, TRUE, 6, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
+
+	if(var(VAR_RESULT) == 0)
+	{
+		if(flag(EZLEVELING_CODE)){
+			clearflag(EZLEVELING_CODE)
+			msgbox("EZLeveling is {COLOR RED}{SHADOW LIGHT_RED}disabled.", MSGBOX_DEFAULT)
+			goto(InsideOfTruck_EventScript_SaveSettingsMenu_Miscellaneous)
+		}
+		else{
+			setflag(EZLEVELING_CODE)
+			msgbox("EZLeveling is {COLOR GREEN}{SHADOW LIGHT_GREEN}enabled.", MSGBOX_DEFAULT)
+			goto(InsideOfTruck_EventScript_SaveSettingsMenu_Miscellaneous)
+		}
+	}
+
+	if(var(VAR_RESULT) == 1)
+	{
+		if(flag(EZCATCH_CODE)){
+			clearflag(EZCATCH_CODE)
+			msgbox("EZCatch is {COLOR RED}{SHADOW LIGHT_RED}disabled.", MSGBOX_DEFAULT)
+			goto(InsideOfTruck_EventScript_SaveSettingsMenu_Miscellaneous)
+		}
+		else{
+			setflag(EZCATCH_CODE)
+			msgbox("EZCatch is {COLOR GREEN}{SHADOW LIGHT_GREEN}enabled.", MSGBOX_DEFAULT)
+			goto(InsideOfTruck_EventScript_SaveSettingsMenu_Miscellaneous)
+		}
+	}
+
+	if(var(VAR_RESULT) == 2)
+	{
+		if(flag(DEXALL_CODE)){
+			clearflag(DEXALL_CODE)
+			msgbox("DexAll is {COLOR RED}{SHADOW LIGHT_RED}disabled.", MSGBOX_DEFAULT)
+			goto(InsideOfTruck_EventScript_SaveSettingsMenu_Miscellaneous)
+		}
+		else{
+			setflag(DEXALL_CODE)
+			msgbox("DexAll is {COLOR GREEN}{SHADOW LIGHT_GREEN}enabled.", MSGBOX_DEFAULT)
+			goto(InsideOfTruck_EventScript_SaveSettingsMenu_Miscellaneous)
+		}
+	}
+
+	if (var(VAR_RESULT) == 127) 
+	{
+		goto(InsideOfTruck_EventScript_StartSettingsMenu_Continue)
+	}
+
+}
+
+script InsideOfTruck_EventScript_SaveSettingsDone_1{
+	goto(ChooseStarterSet)
+}
+script InsideOfTruck_EventScript_SaveSettingsDone_1_Continue{
+	msgbox(format("{COLOR GREEN}{SHADOW LIGHT_GREEN}Kaixer:{COLOR DARK_GRAY}{SHADOW LIGHT_GRAY} Very well then.\ngood luck and have fun!"))
+	fadescreen(FADE_FROM_BLACK)
+	releaseall
+	end
+}
+
+script InsideOfTruck_EventScript_SaveSettingsDone_2 {
+	
+	goto(ChooseStarterSet)
+	msgbox(format("{COLOR GREEN}{SHADOW LIGHT_GREEN}Kaixer:{COLOR DARK_GRAY}{SHADOW LIGHT_GRAY} Custom settings saved.\nVery well then. good luck and have fun!"))
+	fadescreen(FADE_FROM_BLACK)
+	releaseall
+	end
+}
+
+text ModesCheck_Text_MinimalGrinding{
+	format("{COLOR GREEN}{SHADOW LIGHT_GREEN}Minimal Grinding Mode{COLOR DARK_GRAY}{SHADOW LIGHT_GRAY} makes EVs unobtainable.\p"					 
+	"This is mostly for people who dislike\n"
+	"training for EVs.\p"
+	"Do you want to turn on {COLOR GREEN}{SHADOW LIGHT_GREEN}Minimal Grinding\n"
+	"Mode?")
+}
+
+text ModesCheck_Text_DoublesOnly{
+	format("{COLOR GREEN}{SHADOW LIGHT_GREEN}Doubles Only Mode{COLOR DARK_GRAY}{SHADOW LIGHT_GRAY} turns trainer battles\n"
+	"into forced double battles.\p"
+	"This is mainly for people who like a\n"
+	"challenge or for people who are more\p"
+	"into VGC than Singles.\p"
+	"Do you want to turn on {COLOR GREEN}{SHADOW LIGHT_GREEN}Doubles Only\n"
+	"Mode?")
+}
+
+text ModesCheck_Text_NoWeatherMode{
+	format("{COLOR GREEN}{SHADOW LIGHT_GREEN}No Weather Mode{COLOR DARK_GRAY}{SHADOW LIGHT_GRAY} Makes it so no pokemon can learn weather moves and weather abilities are changed into other abilities.\psome weather moves, like Chilly Reception are usable but work as a different move. Would you like to turn on {COLOR GREEN}{SHADOW LIGHT_GREEN}No Weather Mode?")
+}
+
+text KaixerHello{
+	format("{COLOR GREEN}{SHADOW LIGHT_GREEN}Kaixer:{COLOR DARK_GRAY}{SHADOW LIGHT_GRAY} So {COLOR GREEN}{SHADOW LIGHT_GREEN}{PLAYER}{COLOR DARK_GRAY}{SHADOW LIGHT_GRAY} Which region would you like to use?")
+}
+

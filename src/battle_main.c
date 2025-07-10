@@ -76,6 +76,7 @@
 #include "constants/trainers.h"
 #include "constants/weather.h"
 #include "cable_club.h"
+#include "data/dynastic_shortcuts.h"
 
 extern const struct BgTemplate gBattleBgTemplates[];
 extern const struct WindowTemplate *const gBattleWindowTemplates[];
@@ -1882,11 +1883,27 @@ void CustomTrainerPartyAssignMoves(struct Pokemon *mon, const struct TrainerMon 
     }
 }
 
+static u8 DecideLevel(void)
+{
+    u32 i;
+    u8 newhighest = 0;
+    for (i = 0; i < 6; i++)
+    {
+        u16 level = (GetMonData(&gPlayerParty[i], MON_DATA_LEVEL));
+        if (level > newhighest)
+            newhighest = level;
+    }
+    return newhighest;
+}
+
+
 u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer *trainer, bool32 firstTrainer, u32 battleTypeFlags)
 {
     u32 personalityValue;
     s32 i;
     u8 monsCount;
+    u8 isTrainerBossTrainer = trainer->isBossTrainer;
+    u8 trainerClass = trainer->trainerClass;
     if (battleTypeFlags & BATTLE_TYPE_TRAINER && !(battleTypeFlags & (BATTLE_TYPE_FRONTIER
                                                                         | BATTLE_TYPE_EREADER_TRAINER
                                                                         | BATTLE_TYPE_TRAINER_HILL)))
@@ -1908,6 +1925,10 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
 
         u32 monIndices[monsCount];
         DoTrainerPartyPool(trainer, monIndices, monsCount, battleTypeFlags);
+        bool8 decidedLevel = FALSE;
+        u8 maxLevel = 100;
+        u8 playerLevelMinus;
+        u8 finalLevel;
 
         for (i = 0; i < monsCount; i++)
         {
@@ -1939,8 +1960,53 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                 otIdType = OT_ID_PRESET;
                 fixedOtId = HIHALF(personalityValue) ^ LOHALF(personalityValue);
             }
-            CreateMon(&party[i], partyData[monIndex].species, partyData[monIndex].lvl, 0, TRUE, personalityValue, otIdType, fixedOtId);
-            SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[monIndex].heldItem);
+
+            if(FlagGet(FLAG_IS_CHAMPION) && (trainerClass == TRAINER_CLASS_ELITE_FOUR || trainerClass == TRAINER_CLASS_CHAMPION))
+            {
+                CreateMon(&party[monIndex], species, 85, 0, TRUE, personalityValue, otIdType, fixedOtId);
+                SetMonData(&party[monIndex], MON_DATA_HELD_ITEM, &partyData[monIndex].heldItem);
+            }
+            else if(partyData[monIndex].lvl >= 100)
+            {
+                playerLevelMinus = partyData[monIndex].lvl - 100;
+                if(!decidedLevel)
+                {
+                    maxLevel = DecideLevel();
+                    decidedLevel = TRUE;
+                }
+                finalLevel = maxLevel - playerLevelMinus;
+                if(isTrainerBossTrainer && IsEasyMode())
+                    finalLevel -=2;
+
+                if(partyData[monIndex].lvl == PLAYER_MAX)
+                    finalLevel = finalLevel;
+
+                if(partyData[monIndex].lvl == ONE_BELOW_PLAYER_MAX)
+                    finalLevel -=1;
+                    
+                if(partyData[monIndex].lvl == TWO_BELOW_PLAYER_MAX)
+                    finalLevel -=2;
+
+                if(finalLevel <= 0 || finalLevel > 100)
+                {
+                    finalLevel = maxLevel;
+                }
+                CreateMon(&party[monIndex], species, finalLevel, 31, TRUE, personalityValue, otIdType, fixedOtId);
+                SetMonData(&party[monIndex], MON_DATA_HELD_ITEM, &partyData[monIndex].heldItem);  
+            }
+            else
+            {
+                if(isTrainerBossTrainer && IsEasyMode())
+                {
+                    CreateMon(&party[monIndex], species, partyData[monIndex].lvl-2, 0, TRUE, personalityValue, otIdType, fixedOtId);
+                    SetMonData(&party[monIndex], MON_DATA_HELD_ITEM, &partyData[monIndex].heldItem);
+                }
+                else
+                {
+                    CreateMon(&party[monIndex], species, partyData[monIndex].lvl, 0, TRUE, personalityValue, otIdType, fixedOtId);
+                    SetMonData(&party[monIndex], MON_DATA_HELD_ITEM, &partyData[monIndex].heldItem);
+                }
+            }
 
             CustomTrainerPartyAssignMoves(&party[i], &partyData[monIndex]);
             SetMonData(&party[i], MON_DATA_IVS, &(partyData[monIndex].iv));
@@ -3728,7 +3794,7 @@ static void DoBattleIntro(void)
                 gBattleStruct->startingStatus = GetTrainerStartingStatusFromId(TRAINER_BATTLE_PARAM.opponentA);
                 gBattleStruct->startingStatusTimer = 0; // infinite
             }
-            else if (B_VAR_STARTING_STATUS != 0)
+            else if (B_VAR_STARTING_STATUS != 1)
             {
                 gBattleStruct->startingStatus = VarGet(B_VAR_STARTING_STATUS);
                 gBattleStruct->startingStatusTimer = VarGet(B_VAR_STARTING_STATUS_TIMER);
@@ -4261,7 +4327,7 @@ static void HandleTurnActionSelectionState(void)
                     }
                     break;
                 case B_ACTION_USE_ITEM:
-                    if (FlagGet(B_FLAG_NO_BAG_USE))
+                    if (gBattleTypeFlags & BATTLE_TYPE_TRAINER && !IsEasyMode())
                     {
                         RecordedBattle_ClearBattlerAction(battler, 1);
                         gSelectionBattleScripts[battler] = BattleScript_ActionSelectionItemsCantBeUsed;
@@ -4700,7 +4766,9 @@ void SwapTurnOrder(u8 id1, u8 id2)
 // For AI, so it doesn't 'cheat' by knowing player's ability
 u32 GetBattlerTotalSpeedStatArgs(u32 battler, u32 ability, enum ItemHoldEffect holdEffect)
 {
+    int i;
     u32 speed = gBattleMons[battler].speed;
+    u32 move;
 
     // stat stages
     speed *= gStatStageRatios[gBattleMons[battler].statStages[STAT_SPEED]][0];
@@ -4798,9 +4866,12 @@ s32 GetBattleMovePriority(u32 battler, u32 ability, u32 move)
     if (GetActiveGimmick(battler) == GIMMICK_DYNAMAX && GetMoveCategory(move) == DAMAGE_CATEGORY_STATUS)
         return GetMovePriority(MOVE_MAX_GUARD);
 
-    if (ability == ABILITY_GALE_WINGS
+    if ((ability == ABILITY_GALE_WINGS
         && (GetGenConfig(GEN_CONFIG_GALE_WINGS) < GEN_7 || IsBattlerAtMaxHp(battler))
         && GetMoveType(move) == TYPE_FLYING)
+        || (ability == ABILITY_FLAMING_SOUL
+        && (GetGenConfig(GEN_CONFIG_GALE_WINGS) < GEN_7 || IsBattlerAtMaxHp(battler))
+        && GetMoveType(move) == TYPE_FIRE))
     {
         priority++;
     }

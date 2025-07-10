@@ -1638,7 +1638,27 @@
 #define SPECIES_MIMIKYU_BUSTED_TOTEM                    1523
 #define SPECIES_MIMIKYU_TOTEM_BUSTED                    SPECIES_MIMIKYU_BUSTED_TOTEM
 
-#define SPECIES_EGG                                     (SPECIES_MIMIKYU_BUSTED_TOTEM + 1)
+#define CUSTOM_FORMS SPECIES_MIMIKYU_TOTEM_BUSTED
+
+//Custom Forms
+#define SPECIES_CUBONE_ALOLA                            CUSTOM_FORMS + 1
+#define SPECIES_PIKACHU_ALOLAN                          CUSTOM_FORMS + 2
+#define SPECIES_KOFFING_GALAR                           CUSTOM_FORMS + 3
+#define SPECIES_SHADOW_LUGIA                            CUSTOM_FORMS + 4
+
+#define CUSTOM_NORMAL_FORMS_END SPECIES_SHADOW_LUGIA
+#define CUSTOM_MEGA_FORMS CUSTOM_NORMAL_FORMS_END
+
+// New Megas
+#define SPECIES_KINGLER_MEGA                            CUSTOM_MEGA_FORMS + 1
+#define SPECIES_TOXTRICITY_MEGA                         CUSTOM_MEGA_FORMS + 2
+#define SPECIES_SANDACONDA_MEGA                         CUSTOM_MEGA_FORMS + 3
+#define SPECIES_SNORLAX_MEGA                            CUSTOM_MEGA_FORMS + 4
+
+#define CUSTOM_MEGA_FORMS_END SPECIES_SNORLAX_MEGA
+#define CUSTOM_FORMS_END CUSTOM_MEGA_FORMS_END
+
+#define SPECIES_EGG (CUSTOM_FORMS_END + 1)
 
 #define NUM_SPECIES SPECIES_EGG
 

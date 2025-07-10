@@ -175,6 +175,74 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .iconPalIndex = 1,
     },
 
+    [SPECIES_CUBONE_ALOLA] =
+    {
+        .baseHP        = 50,
+        .baseAttack    = 50,
+        .baseDefense   = 95,
+        .baseSpeed     = 35,
+        .baseSpAttack  = 40,
+        .baseSpDefense = 50,
+        .types = MON_TYPES(TYPE_FIRE, TYPE_GHOST),
+        .catchRate = 190,
+        .expYield = 87,
+        .evYield_Defense = 1,
+        .itemRare = ITEM_THICK_CLUB,
+        .genderRatio = PERCENT_FEMALE(50),
+        .eggCycles = 20,
+        .friendship = STANDARD_FRIENDSHIP,
+        .growthRate = GROWTH_MEDIUM_FAST,
+        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_MONSTER),
+        .abilities = { ABILITY_CURSED_BODY, ABILITY_BONE_ZONE, ABILITY_ROCK_HEAD },
+        .bodyColor = BODY_COLOR_BROWN,
+        .speciesName = _("Cubone"),
+        .cryId = CRY_CUBONE,
+        .natDexNum = NATIONAL_DEX_CUBONE,
+        .categoryName = _("Lonely Ghost"),
+        .height = 4,
+        .weight = 65,
+        .description = COMPOUND_STRING(
+            "It pines for the mother it will never see\n"
+            "again. Seeing a likeness of its mother in\n"
+            "the full moon, it cries. The stains on the\n"
+            "skull it wears are from its tears."),
+        .pokemonScale = 545,
+        .pokemonOffset = 21,
+        .trainerScale = 256,
+        .trainerOffset = 0,
+        .frontPic = gMonFrontPic_CuboneAlola,
+        .frontPicSize = MON_COORDS_SIZE(64, 64),
+        .frontPicYOffset = 13,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
+        .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
+        .frontAnimDelay = 30,
+        .backPic = gMonBackPic_CuboneAlola,
+        .backPicSize = MON_COORDS_SIZE(64, 64),
+        .backPicYOffset = 10,
+        .backAnimId = BACK_ANIM_JOLT_RIGHT,
+        .palette = gMonPalette_CuboneAlola,
+        .shinyPalette = gMonShinyPalette_CuboneAlola,
+        .iconSprite = gMonIcon_CuboneAlola,
+        .iconPalIndex = 2,
+        SHADOW(1, 0, SHADOW_SIZE_S)
+        FOOTPRINT(Cubone)
+        /*OVERWORLD(
+            sPicTable_CuboneAlola,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            gOverworldPalette_CuboneAlola,
+            gShinyOverworldPalette_CuboneAlola
+        )*/
+        .isAlolanForm = TRUE,
+        .levelUpLearnset = sCuboneAlolaLevelUpLearnset,
+        .teachableLearnset = sCuboneTeachableLearnset,
+        .eggMoveLearnset = sCuboneEggMoveLearnset,
+        .formSpeciesIdTable = sCuboneFormSpeciesIdTable,
+        .evolutions = EVOLUTION({EVO_LEVEL, 28, SPECIES_MAROWAK_ALOLA})
+    },
+
+
     /* You may add any custom species below this point based on the following structure: */
 
     /*

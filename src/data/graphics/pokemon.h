@@ -26735,3 +26735,18 @@ const u32 gObjectEventPic_Substitute[] = INCBIN_COMP("graphics/pokemon/question_
     const u32 gMonFrontPic_Egg[] = INCBIN_U32("graphics/pokemon/egg/anim_front.4bpp.lz");
     const u16 gMonPalette_Egg[] = INCBIN_U16("graphics/pokemon/egg/normal.gbapal");
     const u8 gMonIcon_Egg[] = INCBIN_U8("graphics/pokemon/egg/icon.4bpp");
+
+#if P_ALOLAN_FORMS
+    const u32 gMonFrontPic_CuboneAlola[] = INCBIN_U32("graphics/pokemon/cubone/Alola/anim_front.4bpp.lz");
+    const u32 gMonPalette_CuboneAlola[] = INCBIN_U32("graphics/pokemon/cubone/Alola/normal.gbapal.lz");
+    const u32 gMonBackPic_CuboneAlola[] = INCBIN_U32("graphics/pokemon/cubone/Alola/back.4bpp.lz");
+    const u32 gMonShinyPalette_CuboneAlola[] = INCBIN_U32("graphics/pokemon/cubone/Alola/shiny.gbapal.lz");
+    const u8 gMonIcon_CuboneAlola[] = INCBIN_U8("graphics/pokemon/cubone/Alola/icon.4bpp");
+#if OW_POKEMON_OBJECT_EVENTS
+    const u32 gObjectEventPic_CuboneAlola[] = INCBIN_COMP("graphics/pokemon/cubone/Alola/overworld.4bpp");
+#if OW_PKMN_OBJECTS_SHARE_PALETTES == FALSE
+    const u32 gOverworldPalette_CuboneAlola[] = INCBIN_U32("graphics/pokemon/cubone/Alola/overworld_normal.gbapal.lz");
+    const u32 gShinyOverworldPalette_CuboneAlola[] = INCBIN_U32("graphics/pokemon/cubone/Alola/overworld_shiny.gbapal.lz");
+#endif //OW_PKMN_OBJECTS_SHARE_PALETTES
+#endif //OW_POKEMON_OBJECT_EVENTS
+#endif //P_ALOLAN_FORMS

@@ -108,6 +108,49 @@ void FakeRtc_ManuallySetTime(u32 day, u32 hour, u32 minute, u32 second)
     FakeRtc_AdvanceTimeBy(day, hour, minute, second);
 }
 
+void FakeRtc_ManuallySetTimeDay(u32 hour, u32 minute, u32 second)
+{
+    struct Time diff, target;
+    RtcCalcLocalTime();
+
+    target.hours = 12;
+    target.minutes = 0;
+    target.seconds = 0;
+    target.days = gLocalTime.days;
+
+    CalcTimeDifference(&diff, &gLocalTime, &target);
+    FakeRtc_AdvanceTimeBy(diff.hours, diff.minutes, diff.seconds);
+}
+
+void FakeRtc_ManuallySetTimeNight(u32 hour, u32 minute, u32 second)
+{
+    struct Time diff, target;
+    RtcCalcLocalTime();
+
+    target.hours = 24;
+    target.minutes = 0;
+    target.seconds = 0;
+    target.days = gLocalTime.days;
+
+    CalcTimeDifference(&diff, &gLocalTime, &target);
+    FakeRtc_AdvanceTimeBy(diff.hours, diff.minutes, diff.seconds);
+}
+
+void FakeRtc_ManuallySetTimeDusk(u32 hour, u32 minute, u32 second)
+{
+    struct Time diff, target;
+    RtcCalcLocalTime();
+
+    target.hours = 18;
+    target.minutes = 0;
+    target.seconds = 0;
+    target.days = gLocalTime.days;
+
+    CalcTimeDifference(&diff, &gLocalTime, &target);
+    FakeRtc_AdvanceTimeBy(diff.hours, diff.minutes, diff.seconds);
+}
+
+
 u32 FakeRtc_GetSecondsRatio(void)
 {
     return (OW_ALTERED_TIME_RATIO == GEN_8_PLA)   ? 60 :
