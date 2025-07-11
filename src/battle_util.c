@@ -4557,7 +4557,6 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
             break;
         case ABILITY_ROUGH_SKIN:
         case ABILITY_IRON_BARBS:
-        case ABILITY_SPIKY_BARBS:
             if (!(gBattleStruct->moveResultFlags[gBattlerTarget] & MOVE_RESULT_NO_EFFECT)
              && IsBattlerAlive(gBattlerAttacker)
              && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
@@ -4710,24 +4709,6 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
              && (B_ABILITY_TRIGGER_CHANCE >= GEN_4 ? RandomPercentage(RNG_FLAME_BODY, 30) : RandomChance(RNG_FLAME_BODY, 1, 3)))
             {
                 gBattleScripting.moveEffect = MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_BURN;
-                PREPARE_ABILITY_BUFFER(gBattleTextBuff1, gLastUsedAbility);
-                BattleScriptPushCursor();
-                gBattlescriptCurrInstr = BattleScript_AbilityStatusEffect;
-                gHitMarker |= HITMARKER_STATUS_ABILITY_EFFECT;
-                effect++;
-            }
-            break;
-        case ABILITY_HOARFROST:
-            if (!(gBattleStruct->moveResultFlags[gBattlerTarget] & MOVE_RESULT_NO_EFFECT)
-             && IsBattlerAlive(gBattlerAttacker)
-             && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
-             && IsBattlerTurnDamaged(gBattlerTarget)
-             && CanGetFrostbite(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker))
-             && GetBattlerHoldEffect(gBattlerAttacker, TRUE) != HOLD_EFFECT_PROTECTIVE_PADS
-             && IsMoveMakingContact(move, gBattlerAttacker)
-             && (B_ABILITY_TRIGGER_CHANCE >= GEN_4 ? RandomPercentage(RNG_FROZEN_ABLITY, 30) : RandomChance(RNG_FROZEN_ABLITY, 1, 3)))
-            {
-                gBattleScripting.moveEffect = MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_FROSTBITE;
                 PREPARE_ABILITY_BUFFER(gBattleTextBuff1, gLastUsedAbility);
                 BattleScriptPushCursor();
                 gBattlescriptCurrInstr = BattleScript_AbilityStatusEffect;
@@ -8424,19 +8405,7 @@ static inline u32 CalcMoveBasePowerAfterModifiers(struct DamageCalculationData *
         break;
     case ABILITY_IRON_FIST:
         if (IsPunchingMove(move))
-           modifier = uq4_12_multiply(modifier, UQ_4_12(1.3));
-        break;
-    case ABILITY_SUPER_SLAMMER:
-        if (IsSlammingOrHammeringMove(move))
-            modifier = uq4_12_multiply(modifier, UQ_4_12(1.3));
-        break;
-    case ABILITY_STRIKER:
-        if (IsKickingMove(move))
-            modifier = uq4_12_multiply(modifier, UQ_4_12(1.3));
-        break;
-    case ABILITY_SPINNER:
-        if (IsKickingMove(move))
-            modifier = uq4_12_multiply(modifier, UQ_4_12(1.3));
+           modifier = uq4_12_multiply(modifier, UQ_4_12(1.2));
         break;
     case ABILITY_SHEER_FORCE:
         if (MoveIsAffectedBySheerForce(move))
@@ -8498,7 +8467,6 @@ static inline u32 CalcMoveBasePowerAfterModifiers(struct DamageCalculationData *
             modifier = uq4_12_multiply(modifier, UQ_4_12(1.2));
         break;
     case ABILITY_PUNK_ROCK:
-    case ABILITY_SOUND_WAVES:
         if (IsSoundMove(move))
             modifier = uq4_12_multiply(modifier, UQ_4_12(1.3));
         break;
@@ -8512,11 +8480,6 @@ static inline u32 CalcMoveBasePowerAfterModifiers(struct DamageCalculationData *
         break;
     case ABILITY_SUPREME_OVERLORD:
         modifier = uq4_12_multiply(modifier, GetSupremeOverlordModifier(battlerAtk));
-        break;
-    case ABILITY_LIQUID_VOICE:
-    case ABILITY_SAND_SONG:
-        if(IsSoundMove(move))
-            modifier = uq4_12_multiply(modifier, UQ_4_12(1.2));
         break;
     }
 
@@ -8726,8 +8689,6 @@ static inline u32 CalcAttackStat(struct DamageCalculationData *damageCalcData, u
     // apply attack stat modifiers
     modifier = UQ_4_12(1.0);
 
-    u32 boostsSameTypeAttackZoroark = IS_BATTLER_OF_TYPE(battlerAtk, moveType);
-
     // attacker's abilities
     switch (atkAbility)
     {
@@ -8853,9 +8814,6 @@ static inline u32 CalcAttackStat(struct DamageCalculationData *damageCalcData, u
         if (gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN && IsBattleMoveSpecial(move))
            modifier = uq4_12_multiply(modifier, UQ_4_12(1.3333));
         break;
-    case ABILITY_ILLUSION:
-        if (ZOROARK_FAM(atkBaseSpeciesId) && boostsSameTypeAttackZoroark)
-           modifier = uq4_12_multiply(modifier, UQ_4_12(1.3333));
     }
 
     // target's abilities
@@ -9025,10 +8983,10 @@ static inline u32 CalcDefenseStat(struct DamageCalculationData *damageCalcData, 
                 RecordAbilityBattle(battlerDef, ABILITY_GRASS_PELT);
         }
         break;
-    /*case ABILITY_FLOWER_GIFT:
+    case ABILITY_FLOWER_GIFT:
         if (gBattleMons[battlerDef].species == SPECIES_CHERRIM_SUNSHINE && IsBattlerWeatherAffected(battlerDef, B_WEATHER_SUN) && !usesDefStat)
             modifier = uq4_12_multiply_half_down(modifier, UQ_4_12(1.5));
-        break;*/
+        break;
     case ABILITY_PURIFYING_SALT:
         if (moveType == TYPE_GHOST)
             modifier = uq4_12_multiply_half_down(modifier, UQ_4_12(2.0));
@@ -9302,7 +9260,6 @@ static inline uq4_12_t GetDefenderAbilitiesModifier(u32 move, u32 moveType, u32 
             return UQ_4_12(0.5);
         break;
     case ABILITY_PUNK_ROCK:
-    case ABILITY_SOUND_WAVES:
         if (IsSoundMove(move))
             return UQ_4_12(0.5);
         break;
@@ -9444,8 +9401,6 @@ static inline s32 DoMoveDamageCalcVars(struct DamageCalculationData *damageCalcD
     u32 targetFinalDefense;
     u32 battlerAtk = damageCalcData->battlerAtk;
     u32 battlerDef = damageCalcData->battlerDef;
-    u32 isBoneMove;
-    u32 move = damageCalcData->move;
 
     if (fixedBasePower)
         gBattleMovePower = fixedBasePower;
@@ -9461,13 +9416,6 @@ static inline s32 DoMoveDamageCalcVars(struct DamageCalculationData *damageCalcD
     DAMAGE_APPLY_MODIFIER(GetWeatherDamageModifier(damageCalcData, holdEffectAtk, holdEffectDef, weather));
     DAMAGE_APPLY_MODIFIER(GetCriticalModifier(damageCalcData->isCrit));
     DAMAGE_APPLY_MODIFIER(GetGlaiveRushModifier(battlerDef));
-
-    isBoneMove = IsBoneMove(move);
-    if((isBoneMove && abilityAtk == ABILITY_BONE_ZONE))
-    {
-        if(typeEffectivenessModifier <= UQ_4_12(0.5)) //Counts for both Immune and Not Very Effective Hits.
-            typeEffectivenessModifier = UQ_4_12(1.0);
-    }
 
     if (damageCalcData->randomFactor)
     {
@@ -9541,7 +9489,6 @@ static inline s32 DoMoveDamageCalc(struct DamageCalculationData *damageCalcData,
 
     if (typeEffectivenessModifier == UQ_4_12(0.0))
         return 0;
-    
 
     s32 dmg = DoFixedDamageMoveCalc(damageCalcData);
     if (dmg != INT32_MAX)
@@ -9671,12 +9618,6 @@ static inline void MulByTypeEffectiveness(uq4_12_t *modifier, u32 move, u32 move
 {
     uq4_12_t mod = GetTypeModifier(moveType, defType);
     u32 abilityAtk = GetBattlerAbility(battlerAtk);
-    u32 abilityDef = GetBattlerAbility(battlerDef);
-    u32 moveEffect = GetMoveEffect(move);
-    u32 itemAtk = gBattleMons[battlerDef].item;
-    u32 itemDef = gBattleMons[battlerDef].item;
-    u32 isStatusMove = IsBattleMoveStatus(move);
-    u32 species = gBattleMons[battlerDef].species;
 
     if (mod == UQ_4_12(0.0) && GetBattlerHoldEffect(battlerDef, TRUE) == HOLD_EFFECT_RING_TARGET)
     {
@@ -9699,56 +9640,12 @@ static inline void MulByTypeEffectiveness(uq4_12_t *modifier, u32 move, u32 move
 
     if (moveType == TYPE_PSYCHIC && defType == TYPE_DARK && gStatuses3[battlerDef] & STATUS3_MIRACLE_EYED && mod == UQ_4_12(0.0))
         mod = UQ_4_12(1.0);
-    if (moveEffect == EFFECT_SUPER_EFFECTIVE_ON_ARG && defType == GetMoveArgType(move))
-        mod = UQ_4_12(2.0);
-    if (moveEffect == EFFECT_GIGATON_HAMMER && species == SPECIES_CORVIKNIGHT && mod == UQ_4_12(0.5))
+    if (GetMoveEffect(move) == EFFECT_SUPER_EFFECTIVE_ON_ARG && defType == GetMoveArgType(move))
         mod = UQ_4_12(2.0);
     if (moveType == TYPE_GROUND && defType == TYPE_FLYING && IsBattlerGrounded(battlerDef) && mod == UQ_4_12(0.0))
         mod = UQ_4_12(1.0);
-    if ((moveType == TYPE_ROCK && abilityDef == ABILITY_MOUNTAINEER && mod >= UQ_4_12(1.0)))
-        mod = UQ_4_12(0.0);
     if (moveType == TYPE_STELLAR && GetActiveGimmick(battlerDef) == GIMMICK_TERA)
         mod = UQ_4_12(2.0);
-
-    if (abilityAtk == ABILITY_MYCELIUM_MIGHT || abilityAtk == ABILITY_NULLIFY)
-    {
-        //if Statements (Dynastic)
-        if(isStatusMove)
-        {
-            //Switches (Dynastic)
-            switch(moveType)
-            {
-                case TYPE_GRASS: //Spore, Stun Spore, Sleep Powder, etc.
-                    if(defType == TYPE_GRASS)
-                        mod = UQ_4_12(1.0);
-                case TYPE_POISON: //Toxic, Poison Powder, etc.
-                    if(defType == TYPE_POISON || defType == TYPE_GRASS)
-                        mod = UQ_4_12(1.0);
-                case TYPE_ELECTRIC: //Thunder Wave, etc.
-                    if(defType == TYPE_ELECTRIC || defType == TYPE_GROUND)
-                        mod = UQ_4_12(1.0);
-                case TYPE_FIRE: //Will-O-Wisp, etc.
-                    if(defType == TYPE_FIRE || abilityDef == ABILITY_FLASH_FIRE)
-                        mod = UQ_4_12(1.0);
-            }
-    
-            switch(abilityDef)
-            {
-                case ABILITY_GOOD_AS_GOLD:
-                    mod = UQ_4_12(1.0);
-                case ABILITY_PURIFYING_SALT:
-                    mod = UQ_4_12(1.0);
-            }
-        
-            switch(itemDef)
-            {
-                case ITEM_ABILITY_SHIELD:
-                    mod = UQ_4_12(1.0);
-                case ITEM_SAFETY_GOGGLES:
-                    mod = UQ_4_12(1.0);
-            }
-        }
-    }
 
     // B_WEATHER_STRONG_WINDS weakens Super Effective moves against Flying-type Pokémon
     if (gBattleWeather & B_WEATHER_STRONG_WINDS && HasWeatherEffect())
@@ -9981,8 +9878,6 @@ s32 GetStealthHazardDamageByTypesAndHP(enum TypeSideHazard hazardType, u8 type1,
 {
     s32 dmg = 0;
     uq4_12_t modifier = UQ_4_12(1.0);
-    u32 abilityDef = GetBattlerAbility(gBattlerAttacker);
-    u32 StealthRockImmuneAbility = (abilityDef == ABILITY_MOUNTAINEER || abilityDef == ABILITY_SHIELD_DUST || abilityDef == ABILITY_AROMATIC_MIST);
 
     modifier = uq4_12_multiply(modifier, GetTypeModifier((u8)hazardType, type1));
     if (type2 != type1)
@@ -9991,41 +9886,29 @@ s32 GetStealthHazardDamageByTypesAndHP(enum TypeSideHazard hazardType, u8 type1,
     switch (modifier)
     {
     case UQ_4_12(0.0):
-        if(StealthRockImmuneAbility)
-            dmg = 0; 
         dmg = 0;
         break;
     case UQ_4_12(0.25):
-        if(StealthRockImmuneAbility)
-            dmg = 0;  
         dmg = maxHp / 32;
         if (dmg == 0)
             dmg = 1;
         break;
     case UQ_4_12(0.5):
-        if(StealthRockImmuneAbility)
-            dmg = 0; 
         dmg = maxHp / 16;
         if (dmg == 0)
             dmg = 1;
         break;
     case UQ_4_12(1.0):
-        if(StealthRockImmuneAbility)
-            dmg = 0; 
         dmg = maxHp / 8;
         if (dmg == 0)
             dmg = 1;
         break;
     case UQ_4_12(2.0):
-        if(StealthRockImmuneAbility)
-            dmg = 0; 
         dmg = maxHp / 4;
         if (dmg == 0)
             dmg = 1;
         break;
     case UQ_4_12(4.0):
-        if(StealthRockImmuneAbility)
-            dmg = 0; 
         dmg = maxHp / 2;
         if (dmg == 0)
             dmg = 1;
@@ -11432,13 +11315,10 @@ bool32 IsSleepClauseActiveForSide(u32 battlerSide)
 
 bool32 IsSleepClauseEnabled()
 {
-    u32 battlerAtk = GetBattlerSide(B_SIDE_PLAYER);
     if (B_SLEEP_CLAUSE)
         return TRUE;
     if (FlagGet(B_FLAG_SLEEP_CLAUSE))
         return TRUE;
-    if(GetBattlerAbility(battlerAtk) != ABILITY_BAD_DREAMS)
-        return FALSE; 
     return FALSE;
 }
 
@@ -11473,7 +11353,7 @@ bool32 DoesDestinyBondFail(u32 battler)
 // This check has always to be the last in a condtion statement because of the recording of AI data.
 bool32 IsMoveEffectBlockedByTarget(u32 ability)
 {
-    if (ability == ABILITY_SHIELD_DUST || ability == ABILITY_AROMATIC_MIST)
+    if (ability == ABILITY_SHIELD_DUST)
     {
         RecordAbilityBattle(gBattlerTarget, ability);
         return TRUE;

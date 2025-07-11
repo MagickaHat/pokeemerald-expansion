@@ -6,10 +6,6 @@
 #include "constants/battle.h"
 #include "difficulty.h"
 
-#define PLAYER_MAX 101
-#define ONE_BELOW_PLAYER_MAX 102
-#define TWO_BELOW_PLAYER_MAX 103
-
 #define MAX_TRAINER_ITEMS 4
 
 #define TRAINER_PIC_WIDTH 64
@@ -108,7 +104,6 @@ struct Trainer
     /*0x22*/ u8 poolRuleIndex;
     /*0x23*/ u8 poolPickIndex;
     /*0x24*/ u8 poolPruneIndex;
-             u8 isBossTrainer;
 };
 
 struct TrainerClass

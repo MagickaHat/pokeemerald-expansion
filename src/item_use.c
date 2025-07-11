@@ -62,7 +62,6 @@ static void Task_OpenRegisteredPokeblockCase(u8);
 static void Task_AccessPokemonBoxLink(u8);
 static void ItemUseOnFieldCB_Bike(u8);
 static void ItemUseOnFieldCB_Rod(u8);
-static void ItemUseOnFieldCB_VariableRod(u8);
 static void ItemUseOnFieldCB_Itemfinder(u8);
 static void ItemUseOnFieldCB_Berry(u8);
 static void ItemUseOnFieldCB_WailmerPailBerry(u8);
@@ -338,35 +337,6 @@ static void ItemUseOnFieldCB_Rod(u8 taskId)
     StartFishing(GetItemSecondaryId(gSpecialVar_ItemId));
     DestroyTask(taskId);
 }
-
-void ItemUseOutOfBattle_VariableRod(u8 taskId)
- {
-     if (CanFish() == TRUE && OW_VAR_VARIABLE_ROD_USE_TECHNIQUE != 0)
-     {
-         sItemUseOnFieldCB = ItemUseOnFieldCB_VariableRod;
-         SetUpItemUseOnFieldCallback(taskId);
-     }
-     else
-         DisplayDadsAdviceCannotUseItemMessage(taskId, gTasks[taskId].tUsingRegisteredKeyItem);
- }
- 
- static void ItemUseOnFieldCB_VariableRod(u8 taskId)
- {
-     switch (VarGet(OW_VAR_VARIABLE_ROD_USE_TECHNIQUE))
-     {
-     case SUPER_ROD:
-     case GOOD_ROD:
-         StartFishing(VarGet(OW_VAR_VARIABLE_ROD_USE_TECHNIQUE));
-         break;
-     
-     case OLD_ROD:
-     default:
-         StartFishing(OLD_ROD);
-         break;
-     }
-     DestroyTask(taskId);
- }
- 
 
 void ItemUseOutOfBattle_Itemfinder(u8 var)
 {
@@ -742,20 +712,6 @@ void ItemUseOutOfBattle_PokemonBoxLink(u8 taskId)
     SetUpItemUseOnFieldCallback(taskId);
 }
 
-extern const u8 EventScript_AccessTimeChanger[];
-
-static void Task_AccessTimeChanger(u8 taskId)
-{
-    ScriptContext_SetupScript(EventScript_AccessTimeChanger);
-    DestroyTask(taskId);
-}
-
-void ItemUseOutOfBattle_TimeChanger(u8 taskId)
-{
-    sItemUseOnFieldCB = Task_AccessTimeChanger;
-    SetUpItemUseOnFieldCallback(taskId);
-}
-
 static void Task_AccessPokemonBoxLink(u8 taskId)
 {
     ScriptContext_SetupScript(EventScript_AccessPokemonBoxLink);
@@ -987,38 +943,6 @@ void ItemUseOutOfBattle_Repel(u8 taskId)
         DisplayItemMessage(taskId, FONT_NORMAL, gText_RepelEffectsLingered, CloseItemMessage);
     else
         DisplayItemMessageInBattlePyramid(taskId, gText_RepelEffectsLingered, Task_CloseBattlePyramidBagMessage);
-}
-
-static const u8 gOtherText_InfiniteRepelOn[] = _("The Infinite Repel was {COLOR GREEN}{SHADOW LIGHT_GREEN}enabled!{PAUSE_UNTIL_PRESS}");
-static const u8 gOtherText_InfiniteRepelOff[] = _("The Infinite Repel was {COLOR RED}{SHADOW LIGHT_RED}disabled!{PAUSE_UNTIL_PRESS}");
-
-void ItemUseOutOfBattle_InfRepel(u8 taskId)
-{
-    if (!gSaveBlock3Ptr->permanentRepel)
-	{
-		PlaySE(SE_REPEL);
-		if (!gTasks[taskId].data[2]) // to account for pressing select in the overworld
-		{
-			DisplayItemMessageOnField(taskId, gOtherText_InfiniteRepelOn, Task_CloseCantUseKeyItemMessage);
-		}
-		else
-		{
-			DisplayItemMessage(taskId, 1, gOtherText_InfiniteRepelOn, CloseItemMessage);
-		}
-	}
-	else
-	{
-		PlaySE(SE_PC_OFF);
-		if (!gTasks[taskId].data[2]) // to account for pressing select in the overworld
-		{
-			DisplayItemMessageOnField(taskId, gOtherText_InfiniteRepelOff, Task_CloseCantUseKeyItemMessage);
-		}
-		else
-		{
-			DisplayItemMessage(taskId, 1, gOtherText_InfiniteRepelOff, CloseItemMessage);
-		}
-	}
-	gSaveBlock3Ptr->permanentRepel = !gSaveBlock3Ptr->permanentRepel;
 }
 
 static void Task_StartUseRepel(u8 taskId)
