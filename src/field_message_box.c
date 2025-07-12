@@ -8,6 +8,8 @@
 #include "field_message_box.h"
 #include "text_window.h"
 #include "script.h"
+#include "field_mugshot.h"
+#include "sprite.h"
 
 static EWRAM_DATA u8 sFieldMessageBoxMode = 0;
 EWRAM_DATA u8 gWalkAwayFromSignpostTimer = 0;
@@ -155,6 +157,10 @@ static void ExpandStringAndStartDrawFieldMessage(const u8 *str, bool32 allowSkip
     StringExpandPlaceholders(gStringVar4, str);
     AddTextPrinterForMessage(allowSkippingDelayWithButtonPress);
     CreateTask_DrawFieldMessage();
+    if (IsFieldMugshotActive())
+    {
+        gSprites[GetFieldMugshotSpriteId()].data[0] = TRUE;
+    }
 }
 
 static void StartDrawFieldMessage(void)
@@ -169,6 +175,11 @@ void HideFieldMessageBox(void)
     ClearDialogWindowAndFrame(0, TRUE);
     sFieldMessageBoxMode = FIELD_MESSAGE_BOX_HIDDEN;
     gSpeakerName = NULL;
+    if (IsFieldMugshotActive())
+    {
+        gSprites[GetFieldMugshotSpriteId()].data[0] = FALSE;
+        RemoveFieldMugshot();
+    }
 }
 
 u8 GetFieldMessageBoxMode(void)

@@ -43,7 +43,7 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_BOY_1",
-      "x": 10,
+      "x": 9,
       "y": 6,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
@@ -57,9 +57,9 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_GIRL_3",
       "x": 3,
-      "y": 7,
+      "y": 8,
       "elevation": 3,
-      "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
+      "movement_type": "MOVEMENT_TYPE_FACE_UP",
       "movement_range_x": 1,
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NONE",
@@ -84,7 +84,7 @@
       "dest_warp_id": "2"
     },
     {
-      "x": 1,
+      "x": -2,
       "y": 6,
       "elevation": 4,
       "dest_map": "MAP_OLDALE_TOWN_POKEMON_CENTER_2F",
