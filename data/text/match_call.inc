@@ -2832,7 +2832,7 @@ MatchCall_Text_Steven7::
 	.string "somewhere!$"
 
 MatchCall_Text_BirchRegisterCall:
-	.string "Prof. Birch: Oh, {PLAYER}{KUN}!\n"
+	.string "Oh, {PLAYER}{KUN}!\n"
 	.string "I've already heard about you!\p"
 	.string "It seems your PokéNav's been\n"
 	.string "upgraded with Match Call.\p"
@@ -2847,7 +2847,7 @@ MatchCall_Text_RegisteredBirch:
 	.string "in the PokéNav.$"
 
 MatchCall_Text_UnusedProfBirch:
-	.string "Prof. Birch: When one has both\n"
+	.string "When one has both\n"
 	.string "the Pokédex and PokéNav, studying\l"
 	.string "Pokémon becomes more fun, eh?$"
 

@@ -260,12 +260,18 @@ OldaleTown_EventScript_ShowRivalMessage::
 	end
 
 OldaleTown_EventScript_ShowMayMessage::
+	speakername CommonName_Text_May
+	createfieldmugshot MUGSHOT_MAY, EMOTE_HAPPY
 	msgbox OldaleTown_Text_MayLetsGoBack, MSGBOX_DEFAULT
+	removefieldmugshot
 	goto OldaleTown_EventScript_RivalFinish
 	end
 
 OldaleTown_EventScript_ShowBrendanMessage::
+	speakername CommonName_Text_Brendan
+	createfieldmugshot MUGSHOT_BRENDAN, EMOTE_HAPPY
 	msgbox OldaleTown_Text_BrendanLetsGoBack, MSGBOX_DEFAULT
+	removefieldmugshot
 	goto OldaleTown_EventScript_RivalFinish
 	end
 

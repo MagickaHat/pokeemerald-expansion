@@ -70,10 +70,10 @@ void RemoveFieldMugshot(void)
     sIsFieldMugshotActive = FALSE;
 }
 
-void CreateFieldMugshot(void)
+void CreateFieldMugshot(struct ScriptContext *ctx)
 {
-    u16 id = VarGet(VAR_TEMP_E);
-    u16 emote = VarGet(VAR_TEMP_F);
+    u16 id = ScriptReadHalfword(ctx);
+    u16 emote = ScriptReadHalfword(ctx);
 
     _CreateFieldMugshot(id, emote);
 }

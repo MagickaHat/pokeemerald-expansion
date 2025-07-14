@@ -23742,13 +23742,18 @@ F_TRAINER_FEMALE |
             {
 #line 9513
             .species = SPECIES_TREECKO,
-            .gender = TRAINER_MON_RANDOM_GENDER,
+            .gender = TRAINER_MON_MALE,
 #line 9515
             .iv = TRAINER_PARTY_IVS(0, 0, 0, 0, 0, 0),
 #line 9514
             .lvl = 5,
             .nature = NATURE_HARDY,
             .dynamaxLevel = MAX_DYNAMAX_LEVEL,
+            .moves = {
+#line 9516
+                MOVE_POUND,
+                MOVE_LEER,
+            },
             },
         },
     },
@@ -23882,13 +23887,18 @@ F_TRAINER_FEMALE |
             {
 #line 9568
             .species = SPECIES_TORCHIC,
-            .gender = TRAINER_MON_RANDOM_GENDER,
+            .gender = TRAINER_MON_MALE,
 #line 9570
             .iv = TRAINER_PARTY_IVS(0, 0, 0, 0, 0, 0),
 #line 9569
             .lvl = 5,
             .nature = NATURE_HARDY,
             .dynamaxLevel = MAX_DYNAMAX_LEVEL,
+            .moves = {
+#line 9570
+                MOVE_SCRATCH,
+                MOVE_GROWL,
+            },
             },
         },
     },
@@ -24022,13 +24032,18 @@ F_TRAINER_FEMALE |
             {
 #line 9623
             .species = SPECIES_MUDKIP,
-            .gender = TRAINER_MON_RANDOM_GENDER,
+            .gender = TRAINER_MON_MALE,
 #line 9625
             .iv = TRAINER_PARTY_IVS(0, 0, 0, 0, 0, 0),
 #line 9624
             .lvl = 5,
             .nature = NATURE_HARDY,
             .dynamaxLevel = MAX_DYNAMAX_LEVEL,
+            .moves = {
+#line 9625
+                MOVE_TACKLE,
+                MOVE_GROWL,
+            },
             },
         },
     },
@@ -24164,13 +24179,18 @@ F_TRAINER_FEMALE |
             {
 #line 9678
             .species = SPECIES_TREECKO,
-            .gender = TRAINER_MON_RANDOM_GENDER,
+            .gender = TRAINER_MON_FEMALE,
 #line 9680
             .iv = TRAINER_PARTY_IVS(0, 0, 0, 0, 0, 0),
 #line 9679
             .lvl = 5,
             .nature = NATURE_HARDY,
             .dynamaxLevel = MAX_DYNAMAX_LEVEL,
+            .moves = {
+#line 9680
+                MOVE_POUND,
+                MOVE_LEER,
+            },
             },
         },
     },
@@ -24310,13 +24330,18 @@ F_TRAINER_FEMALE |
             {
 #line 9733
             .species = SPECIES_TORCHIC,
-            .gender = TRAINER_MON_RANDOM_GENDER,
+            .gender = TRAINER_MON_FEMALE,
 #line 9735
             .iv = TRAINER_PARTY_IVS(0, 0, 0, 0, 0, 0),
 #line 9734
             .lvl = 5,
             .nature = NATURE_HARDY,
             .dynamaxLevel = MAX_DYNAMAX_LEVEL,
+            .moves = {
+#line 9735
+                MOVE_SCRATCH,
+                MOVE_GROWL,
+            },
             },
         },
     },
@@ -24456,13 +24481,18 @@ F_TRAINER_FEMALE |
             {
 #line 9788
             .species = SPECIES_MUDKIP,
-            .gender = TRAINER_MON_RANDOM_GENDER,
+            .gender = TRAINER_MON_FEMALE,
 #line 9790
             .iv = TRAINER_PARTY_IVS(0, 0, 0, 0, 0, 0),
 #line 9789
             .lvl = 5,
             .nature = NATURE_HARDY,
             .dynamaxLevel = MAX_DYNAMAX_LEVEL,
+            .moves = {
+#line 9790
+                MOVE_TACKLE,
+                MOVE_GROWL,
+            },
             },
         },
     },

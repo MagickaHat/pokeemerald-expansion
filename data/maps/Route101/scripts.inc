@@ -19,7 +19,10 @@ Route101_EventScript_HideMapNamePopup::
 Route101_EventScript_StartBirchRescue::
 	lockall
 	playbgm MUS_HELP, TRUE
+	speakername CommonName_Text_Birch
+	createfieldmugshot MUGSHOT_BIRCH, EMOTE_SCARED
 	msgbox Route101_Text_HelpMe, MSGBOX_DEFAULT
+	removefieldmugshot
 	closemessage
 	setobjectxy LOCALID_ROUTE101_BIRCH, 0, 15
 	setobjectxy LOCALID_ROUTE101_ZIGZAGOON, 0, 16
@@ -35,7 +38,10 @@ Route101_EventScript_StartBirchRescue::
 	applymovement LOCALID_ROUTE101_ZIGZAGOON, Route101_Movement_ZigzagoonFaceBirch
 	applymovement LOCALID_ROUTE101_BIRCH, Route101_Movement_BirchFaceZigzagoon
 	waitmovement 0
+	speakername CommonName_Text_Birch
+	createfieldmugshot MUGSHOT_BIRCH, EMOTE_SCARED
 	msgbox Route101_Text_PleaseHelp, MSGBOX_DEFAULT
+	removefieldmugshot
 	closemessage
 	setvar VAR_ROUTE101_STATE, 2
 	releaseall
@@ -43,7 +49,10 @@ Route101_EventScript_StartBirchRescue::
 
 Route101_EventScript_PreventExitSouth::
 	lockall
+	speakername CommonName_Text_Birch
+	createfieldmugshot MUGSHOT_BIRCH, EMOTE_SCARED
 	msgbox Route101_Text_DontLeaveMe, MSGBOX_DEFAULT
+	removefieldmugshot
 	closemessage
 	applymovement LOCALID_PLAYER, Route101_Movement_PreventExitSouth
 	waitmovement 0
@@ -52,7 +61,10 @@ Route101_EventScript_PreventExitSouth::
 
 Route101_EventScript_PreventExitWest::
 	lockall
+	speakername CommonName_Text_Birch
+	createfieldmugshot MUGSHOT_BIRCH, EMOTE_SCARED
 	msgbox Route101_Text_DontLeaveMe, MSGBOX_DEFAULT
+	removefieldmugshot
 	closemessage
 	applymovement LOCALID_PLAYER, Route101_Movement_PreventExitWest
 	waitmovement 0
@@ -61,7 +73,10 @@ Route101_EventScript_PreventExitWest::
 
 Route101_EventScript_PreventExitNorth::
 	lockall
+	speakername CommonName_Text_Birch
+	createfieldmugshot MUGSHOT_BIRCH, EMOTE_SCARED
 	msgbox Route101_Text_DontLeaveMe, MSGBOX_DEFAULT
+	removefieldmugshot
 	closemessage
 	applymovement LOCALID_PLAYER, Route101_Movement_PreventExitNorth
 	waitmovement 0
@@ -229,6 +244,8 @@ Route101_EventScript_BirchsBag::
 	waitstate
 	applymovement LOCALID_ROUTE101_BIRCH, Route101_Movement_BirchApproachPlayer
 	waitmovement 0
+	speakername CommonName_Text_Birch
+	createfieldmugshot MUGSHOT_BIRCH, EMOTE_HAPPY
 	msgbox Route101_Text_YouSavedMe, MSGBOX_DEFAULT
 	special HealPlayerParty
 	setflag FLAG_HIDE_ROUTE_101_BIRCH_ZIGZAGOON_BATTLE
@@ -240,6 +257,7 @@ Route101_EventScript_BirchsBag::
 	checkplayergender
 	call_if_eq VAR_RESULT, MALE, Route101_EventScript_HideMayInBedroom
 	call_if_eq VAR_RESULT, FEMALE, Route101_EventScript_HideBrendanInBedroom
+	removefieldmugshot
 	warp MAP_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB, 6, 5
 	waitstate
 	release
@@ -271,7 +289,7 @@ Route101_Text_DontLeaveMe:
 	.string "Don't leave me like this!$"
 
 Route101_Text_YouSavedMe:
-	.string "Prof. Birch: Whew…\p"
+	.string "Whew…\p"
 	.string "I was in the tall grass studying wild\n"
 	.string "Pokémon when I was jumped.\p"
 	.string "You saved me.\n"

@@ -82,7 +82,9 @@ LittlerootTown_MaysHouse_2F_EventScript_MeetMayNorth::
 	waitmovement 0
 	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterLeft
 	waitmovement 0
+	createfieldmugshot MUGSHOT_MAY, EMOTE_CONFUSED
 	msgbox RivalsHouse_2F_Text_MayWhoAreYou, MSGBOX_DEFAULT
+	removefieldmugshot
 	closemessage
 	applymovement LOCALID_PLAYER, LittlerootTown_MaysHouse_2F_Movement_PlayerWatchMayNorth
 	applymovement LOCALID_RIVALS_HOUSE_2F_RIVAL, LittlerootTown_MaysHouse_2F_Movement_MayWalkToPCNorth
@@ -94,7 +96,9 @@ LittlerootTown_MaysHouse_2F_EventScript_MeetMaySouth::
 	waitmovement 0
 	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterLeft
 	waitmovement 0
+	createfieldmugshot MUGSHOT_MAY, EMOTE_CONFUSED
 	msgbox RivalsHouse_2F_Text_MayWhoAreYou, MSGBOX_DEFAULT
+	removefieldmugshot
 	closemessage
 	applymovement LOCALID_PLAYER, LittlerootTown_MaysHouse_2F_Movement_PlayerWatchMaySouth
 	applymovement LOCALID_RIVALS_HOUSE_2F_RIVAL, LittlerootTown_MaysHouse_2F_Movement_MayWalkToPCSouth
@@ -106,7 +110,9 @@ LittlerootTown_MaysHouse_2F_EventScript_MeetMayWest::
 	waitmovement 0
 	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterUp
 	waitmovement 0
+	createfieldmugshot MUGSHOT_MAY, EMOTE_CONFUSED
 	msgbox RivalsHouse_2F_Text_MayWhoAreYou, MSGBOX_DEFAULT
+	removefieldmugshot
 	closemessage
 	applymovement LOCALID_RIVALS_HOUSE_2F_RIVAL, LittlerootTown_MaysHouse_2F_Movement_MayWalkToPCWest
 	waitmovement 0
@@ -117,7 +123,9 @@ LittlerootTown_MaysHouse_2F_EventScript_MeetMayEast::
 	waitmovement 0
 	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterLeft
 	waitmovement 0
+	createfieldmugshot MUGSHOT_MAY, EMOTE_CONFUSED
 	msgbox RivalsHouse_2F_Text_MayWhoAreYou, MSGBOX_DEFAULT
+	removefieldmugshot
 	closemessage
 	applymovement LOCALID_PLAYER, LittlerootTown_MaysHouse_2F_Movement_PlayerWatchMayEast
 	applymovement LOCALID_RIVALS_HOUSE_2F_RIVAL, LittlerootTown_MaysHouse_2F_Movement_MayWalkToPCEast
@@ -242,12 +250,18 @@ RivalsHouse_2F_EventScript_Rival::
 	end
 
 RivalsHouse_2F_EventScript_May::
+	speakername CommonName_Text_May
+	createfieldmugshot MUGSHOT_MAY, EMOTE_HAPPY
 	msgbox RivalsHouse_2F_Text_MayGettingReady, MSGBOX_DEFAULT
+	removefieldmugshot
 	releaseall
 	end
 
 RivalsHouse_2F_EventScript_Brendan::
+	speakername CommonName_Text_Brendan
+	createfieldmugshot MUGSHOT_MAY, EMOTE_HAPPY
 	msgbox RivalsHouse_2F_Text_BrendanGettingReady, MSGBOX_DEFAULT
+	removefieldmugshot
 	releaseall
 	end
 
@@ -313,6 +327,7 @@ RivalsHouse_2F_Text_MayWhoAreYou:
 	.string "Who… Who are you?\p"
 	.string "… … … … … … … …\n"
 	.string "… … … … … … … …\p"
+	.string "{CREATE_MUGSHOT MUGSHOT_MAY EMOTE_HAPPY}"
 	.string "Oh, you're {PLAYER}{KUN}.\n"
 	.string "So your move was today.\p"
 	.string "Um… I'm May.\n"
@@ -324,12 +339,15 @@ RivalsHouse_2F_Text_MayWhoAreYou:
 	.string "my dad, Prof. Birch.\p"
 	.string "I was hoping that you would be nice,\n"
 	.string "{PLAYER}{KUN}, and that we could be friends.\p"
+	.string "{CREATE_MUGSHOT MUGSHOT_MAY EMOTE_BLUSH}"
 	.string "Oh, this is silly, isn't it?\n"
 	.string "I… I've just met you, {PLAYER}{KUN}.\p"
 	.string "Eheheh…\p"
+	.string "{CREATE_MUGSHOT MUGSHOT_MAY EMOTE_SCARED}"
 	.string "Oh, no! I forgot!\p"
 	.string "I was supposed to go help Dad catch\n"
 	.string "some wild Pokémon!\p"
+	.string "{CREATE_MUGSHOT MUGSHOT_MAY EMOTE_HAPPY}"
 	.string "{PLAYER}{KUN}, I'll catch you later!$"
 
 RivalsHouse_2F_Text_MayGettingReady:
@@ -340,6 +358,7 @@ RivalsHouse_2F_Text_BrendanWhoAreYou:
 	.string "Hey!\n"
 	.string "You…\p"
 	.string "Who are you?\p"
+	.string "{CREATE_MUGSHOT MUGSHOT_BRENDAN EMOTE_HAPPY}"
 	.string "Oh, you're {PLAYER}, aren't you?\n"
 	.string "Moved in next door, right?\p"
 	.string "I didn't know that you're a girl.\p"
@@ -348,12 +367,16 @@ RivalsHouse_2F_Text_BrendanWhoAreYou:
 	.string "kid, so I assumed you'd be a guy.\p"
 	.string "My name's Brendan.\n"
 	.string "So, hi, neighbor!\p"
+	.string "{CREATE_MUGSHOT MUGSHOT_BRENDAN EMOTE_BLUSH}"
 	.string "Huh? Hey, {PLAYER}, don't you have\n"
 	.string "a Pokémon?\p"
+	.string "{CREATE_MUGSHOT MUGSHOT_MAY EMOTE_CONFUSED}"
 	.string "Do you want me to go catch you one?\p"
+	.string "{CREATE_MUGSHOT MUGSHOT_MAY EMOTE_SAD}"
 	.string "Aw, darn, I forgot…\p"
 	.string "I'm supposed to go help my dad catch\n"
 	.string "some wild Pokémon.\p"
+	.string "{CREATE_MUGSHOT MUGSHOT_MAY EMOTE_HAPPY}"
 	.string "Some other time, okay?$"
 
 RivalsHouse_2F_Text_BrendanGettingReady:

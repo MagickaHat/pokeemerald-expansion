@@ -144,7 +144,10 @@ LittlerootTown_EventScript_GoInsideWithMom::
 	delay 10
 	applymovement LOCALID_LITTLEROOT_MOM, LittlerootTown_Movement_MomApproachPlayerAtTruck
 	waitmovement 0
+	speakername CommonName_Text_Mom
+	createfieldmugshot MUGSHOT_MOM, EMOTE_HAPPY
 	msgbox LittlerootTown_Text_OurNewHomeLetsGoInside, MSGBOX_DEFAULT
+	removefieldmugshot
 	closemessage
 	applymovement LOCALID_LITTLEROOT_MOM, LittlerootTown_Movement_MomApproachDoor
 	applymovement LOCALID_PLAYER, LittlerootTown_Movement_PlayerApproachDoor
@@ -208,7 +211,10 @@ LittlerootTown_EventScript_BeginDexUpgradeScene::
 	applymovement LOCALID_LITTLEROOT_BIRCH, Common_Movement_ExclamationMark
 	waitmovement 0
 	delay 80
+	speakername CommonName_Text_Birch
+	createfieldmugshot MUGSHOT_BIRCH, EMOTE_HAPPY
 	msgbox LittlerootTown_Text_BirchSomethingToShowYouAtLab, MSGBOX_DEFAULT
+	removefieldmugshot
 	closemessage
 	clearflag FLAG_HIDE_LITTLEROOT_TOWN_RIVAL
 	clearflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCH
@@ -243,8 +249,6 @@ LittlerootTown_EventScript_SetRivalBirchPosForDexUpgradeFemale::
 
 LittlerootTown_EventScript_FatMan::
 	msgbox LittlerootTown_Text_CanUsePCToStoreItems, MSGBOX_NPC
-	setflag FLAG_SYS_QUEST_MENU_GET
-	removefieldmugshot
 	end
 
 LittlerootTown_EventScript_Boy::
@@ -474,7 +478,10 @@ LittlerootTown_EventScript_GiveRunningShoesTrigger::
 	checkplayergender
 	call_if_eq VAR_RESULT, MALE, LittlerootTown_EventScript_SetHomeDoorCoordsMale
 	call_if_eq VAR_RESULT, FEMALE, LittlerootTown_EventScript_SetHomeDoorCoordsFemale
+	speakername CommonName_Text_Mom
+	createfieldmugshot MUGSHOT_MOM, EMOTE_SAD
 	msgbox LittlerootTown_Text_WaitPlayer, MSGBOX_DEFAULT
+	removefieldmugshot
 	closemessage
 	checkplayergender
 	call_if_eq VAR_RESULT, MALE, LittlerootTown_EventScript_MomApproachPlayerMale
@@ -896,24 +903,22 @@ LittlerootTown_EventScript_SetReceivedRunningShoes::
 
 LittlerootTown_EventScript_GiveRunningShoes::
     speakername CommonName_Text_Mom
+	createfieldmugshot MUGSHOT_MOM, EMOTE_HAPPY
 	msgbox LittlerootTown_Text_WearTheseRunningShoes, MSGBOX_DEFAULT
 	playfanfare MUS_OBTAIN_ITEM
 	speakername NULL
+	removefieldmugshot
 	message LittlerootTown_Text_SwitchShoesWithRunningShoes
 	waitfanfare
 	setflag FLAG_RECEIVED_RUNNING_SHOES
 	speakername CommonName_Text_Mom
+	createfieldmugshot MUGSHOT_MOM, EMOTE_HAPPY
 	msgbox LittlerootTown_Text_ExplainRunningShoes, MSGBOX_DEFAULT
 	msgbox LittlerootTown_Text_ComeHomeIfAnythingHappens, MSGBOX_DEFAULT
+	removefieldmugshot
 	closemessage
 	delay 30
 	return
-
-CommonName_Text_Mom:
-	.string "Mom$"
-
-CommonName_Text_Birch:
-	.string "Prof. Birch$"
 
 LittlerootTown_Text_OurNewHomeLetsGoInside:
 	.string "{PLAYER}, we're here, honey!\p"
