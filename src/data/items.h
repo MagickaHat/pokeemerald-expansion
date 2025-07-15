@@ -14141,4 +14141,20 @@ const struct Item gItemsInfo[] =
         .iconPic = gItemIcon_PokeshiDoll,
         .iconPalette = gItemIconPalette_PokeshiDoll,
     },
+
+    [ITEM_OUTFIT_BOX] =
+    {
+        .name = _("Outfit Box"),
+        .price = 0,
+        .importance = 1,
+        .description = COMPOUND_STRING(
+             "A box for storing\n"
+             "your collections of\n"
+             "Outfits safely."),
+        .pocket = POCKET_KEY_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_OutfitBox,
+	.iconPic = gItemIcon_OutfitBox,
+	.iconPalette = gItemIconPalette_OutfitBox,
+    },
 };

@@ -20,6 +20,7 @@
 #include "task.h"
 #include "trig.h"
 #include "util.h"
+#include "outfit_menu.h"
 #include "battle_setup.h"
 #include "data.h"
 #include "constants/field_effects.h"
@@ -2580,10 +2581,10 @@ static void HBlankCB_Mugshots(void)
 
 static void Mugshots_CreateTrainerPics(struct Task *task)
 {
-    struct Sprite *opponentSpriteA, *opponentSpriteB=0, *playerSprite, *partnerSprite=0;
-
+    struct Sprite *opponentSpriteA, *opponentSpriteB = NULL, *playerSprite, *partnerSprite = NULL;
     u8 trainerAPicId = GetTrainerPicFromId(TRAINER_BATTLE_PARAM.opponentA);
     u8 trainerBPicId = GetTrainerPicFromId(TRAINER_BATTLE_PARAM.opponentB);
+    u32 playerPicId = GetPlayerTrainerPicIdByOutfitGenderType(gSaveBlock2Ptr->currOutfitId, gSaveBlock2Ptr->playerGender, 0);
     u8 partnerPicId = gTrainerPicToTrainerBackPic[GetTrainerPicFromId(gPartnerTrainerId)];
     s16 opponentARotationScales = 0;
     s16 opponentBRotationScales = 0;
@@ -2612,6 +2613,7 @@ static void Mugshots_CreateTrainerPics(struct Task *task)
                                                   0, NULL);
 
     gReservedSpritePaletteCount = 12;
+
     if (gPartnerTrainerId != TRAINER_PARTNER(PARTNER_NONE) && gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER) 
     {
         task->tPartnerSpriteId = CreateTrainerSprite(partnerPicId, 
@@ -2628,10 +2630,7 @@ static void Mugshots_CreateTrainerPics(struct Task *task)
         SetOamMatrixRotationScaling(partnerSprite->oam.matrixNum, -512, 512, 0);
     }
 
-    task->tPlayerSpriteId = CreateTrainerSprite(PlayerGenderToFrontTrainerPicId(gSaveBlock2Ptr->playerGender), 
-                                                DISPLAY_WIDTH + 32, 
-                                                106, 
-                                                0, NULL); 
+    task->tPlayerSpriteId = CreateTrainerSprite(playerPicId, DISPLAY_WIDTH + 32, 106, 0, NULL);
 
     opponentSpriteA = &gSprites[task->tOpponentSpriteAId];
     playerSprite = &gSprites[task->tPlayerSpriteId];

@@ -43,6 +43,7 @@
 #include "field_specials.h"
 #include "berry_powder.h"
 #include "mystery_gift.h"
+#include "outfit_menu.h"
 #include "union_room_chat.h"
 #include "constants/map_groups.h"
 #include "quests.h"
@@ -56,6 +57,7 @@ static void ClearFrontierRecord(void);
 static void WarpToTruck(void);
 static void ResetMiniGamesRecords(void);
 static void ResetItemFlags(void);
+static void ResetOutfitData(void);
 static void ResetDexNav(void);
 
 EWRAM_DATA bool8 gDifferentSaveFile = FALSE;
@@ -140,6 +142,7 @@ void Sav2_ClearSetDefault(void)
 {
     ClearSav2();
     SetDefaultOptions();
+    ResetOutfitData();
 }
 
 void ResetMenuAndMonGlobals(void)
@@ -150,6 +153,13 @@ void ResetMenuAndMonGlobals(void)
     ZeroEnemyPartyMons();
     ResetBagScrollPositions();
     ResetPokeblockScrollPositions();
+}
+
+static void ResetOutfitData(void)
+{
+    memset(gSaveBlock2Ptr->outfits, 0, sizeof(gSaveBlock2Ptr->outfits));
+    UnlockOutfit(DEFAULT_OUTFIT);
+    gSaveBlock2Ptr->currOutfitId = DEFAULT_OUTFIT;
 }
 
 void NewGameInitData(void)
@@ -213,6 +223,7 @@ void NewGameInitData(void)
     QuestMenu_ResetMenuSaveData();
     SetCurrentDifficultyLevel(DIFFICULTY_NORMAL);
     ResetItemFlags();
+    ResetOutfitData();
     ResetDexNav();
     ClearFollowerNPCData();
 }

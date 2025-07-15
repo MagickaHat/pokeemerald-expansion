@@ -2917,7 +2917,7 @@ void SpriteCB_PlayerMonSlideIn(struct Sprite *sprite)
     {
         if (sprite->animEnded)
             return;
-        sprite->data[4] = sprite->x;
+        sprite->data[4] = sprite->data[5];
         sprite->x = -33;
         sprite->invisible = FALSE;
         sprite->data[3]++;

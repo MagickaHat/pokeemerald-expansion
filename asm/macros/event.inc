@@ -1900,6 +1900,38 @@
 	_dynmultichoice \left, \top, \ignoreBPress, \maxBeforeScroll, \shouldSort, \initialSelected, \callbacks, NULL
 	.endm
 
+	@! Unlocks a locked outfit
+	.macro toggleoutfit outfitId:req, type:req
+	.byte 0xe5
+	.2byte \outfitId
+	.byte \type
+	.endm
+
+	@! Gets the current status of the specified outfit where:
+	@! OUTFIT_CHECK_FLAG is for checking if it's either unlocked/locked
+	@! OUTFIT_CHECK_USED is for checking if it's currently used
+	.macro getoutfitstatus outfitId:req, data:req
+	.byte 0xe6
+	.2byte \outfitId
+	.byte \data
+	.endm
+
+	@! Buffers either the name or the description strings of an outfit
+	@! to a str var
+	.macro bufferoutfitstr stringVarId:req, outfitId:req, type:req
+	.byte 0xe7
+	stringvar \stringVarId
+	.2byte \outfitId
+	.byte \type
+	.endm
+
+	@ Opens the Pokemart system, offering the specified outfit products for sale.
+	@ Products should be a list of .2byte item values preceded by an .align 2
+	.macro pokemartoutfit products:req
+	.byte 0xe8
+	.4byte \products
+	.endm
+
 @ Supplementary
 
 	.macro goto_if_unset flag:req, dest:req
@@ -2179,7 +2211,7 @@
 	@ Attempts to trigger a special evolution method in the overworld.
 	@ There may be other conditions required which are coded for in GetEvolutionTargetSpecies.
 	@ EX: tryspecialevo EVO_WATER_SCROLL, FALSE, FALSE triggers Kubfu's EVO_WATER_SCROLL evolution
-	@ 	  method, cannot be cancelled in the evolution scene, and will only evolve one Kubfu if there
+	@	  method, cannot be cancelled in the evolution scene, and will only evolve one Kubfu if there
 	@	  are multiple in the player's party.
 	.macro tryspecialevo evoMethod:req, canStopEvo=TRUE, tryMultiple=TRUE
 	setvar VAR_0x8000, \evoMethod
@@ -2193,6 +2225,56 @@
 	setvar VAR_0x8004, \trainer1
 	callnative CreateTrainerPartyForPlayer, requests_effects=1
 	trainerbattle_no_intro \trainer2, NULL
+	.endm
+
+	@! neat shortcuts for outfits
+
+	.macro checkoutfitflag outfitId:req
+	getoutfitstatus \outfitId, OUTFIT_CHECK_FLAG
+	.endm
+
+	.macro iswearingoutfit outfitId:req
+	getoutfitstatus \outfitId, OUTFIT_CHECK_USED
+	.endm
+
+	.macro bufferoutfitname stringVarId:req, outfitId:req
+	bufferoutfitstr \stringVarId, \outfitId, OUTFIT_BUFFER_NAME
+	.endm
+
+	.macro bufferoutfitdesc stringVarId:req, outfitId:req
+	bufferoutfitstr \stringVarId, \outfitId, OUTFIT_BUFFER_DESC
+	.endm
+
+	.macro unlockoutfit outfitId:req
+	toggleoutfit \outfitId, OUTFIT_TOGGLE_UNLOCK
+	.endm
+
+	.macro lockoutfit outfitId:req
+	toggleoutfit \outfitId, OUTFIT_TOGGLE_LOCK
+	.endm
+
+	@! Jumps to \dest if the specified outfit is unlocked
+	.macro call_if_outfitunlocked outfit:req, dest:req
+	checkoutfitflag \outfit
+	call_if FALSE, \dest
+	.endm
+
+	@! Jumps to \dest if the specified outfit is locked
+	.macro call_if_outfitlocked outfit:req, dest:req
+	checkoutfitflag \outfit
+	call_if TRUE, \dest
+	.endm
+
+	@! Jumps to \dest if the specified outfit is currently wear
+	.macro call_if_wearoutfit outfit:req, dest:req
+	iswearingoutfit \outfit
+	call_if TRUE, \dest
+	.endm
+
+	@! Jumps to \dest if the specified outfit is not currently wear
+	.macro call_if_notwearoutfit outfit:req, dest:req
+	iswearingoutfit \outfit
+	call_if FALSE, \dest
 	.endm
 
 	@ Sets VAR_RESULT to TRUE if stat can be hyper trained, or to

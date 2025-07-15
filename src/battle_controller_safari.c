@@ -22,6 +22,7 @@
 #include "util.h"
 #include "window.h"
 #include "line_break.h"
+#include "outfit_menu.h"
 #include "constants/battle_anim.h"
 #include "constants/party_menu.h"
 #include "constants/songs.h"
@@ -282,7 +283,7 @@ static void SafariBufferExecCompleted(u32 battler)
 
 static void SafariHandleDrawTrainerPic(u32 battler)
 {
-    u32 trainerPicId = gSaveBlock2Ptr->playerGender + TRAINER_BACK_PIC_BRENDAN;
+    u32 trainerPicId = GetPlayerTrainerPicIdByOutfitGenderType(gSaveBlock2Ptr->currOutfitId, gSaveBlock2Ptr->playerGender, 1);
 
     BtlController_HandleDrawTrainerPic(battler, trainerPicId, FALSE,
                                        80, 80 + 4 * (8 - gTrainerBacksprites[trainerPicId].coordinates.size),

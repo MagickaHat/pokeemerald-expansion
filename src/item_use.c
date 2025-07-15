@@ -40,6 +40,7 @@
 #include "task.h"
 #include "text.h"
 #include "vs_seeker.h"
+#include "outfit_menu.h"
 #include "constants/event_bg.h"
 #include "constants/event_objects.h"
 #include "constants/item_effects.h"
@@ -80,6 +81,8 @@ static void SetDistanceOfClosestHiddenItem(u8, s16, s16);
 static void CB2_OpenPokeblockFromBag(void);
 static void ItemUseOnFieldCB_Honey(u8 taskId);
 static bool32 IsValidLocationForVsSeeker(void);
+static void CB2_OpenOutfitBoxFromBag(void);
+static void Task_OpenRegisteredOutfitBox(u8 taskId);
 
 static const u8 sText_CantDismountBike[] = _("You can't dismount your Bike here.{PAUSE_UNTIL_PRESS}");
 static const u8 sText_ItemFinderNearby[] = _("Huh?\nThe Itemfinder's responding!\pThere's an item buried around here!{PAUSE_UNTIL_PRESS}");
@@ -278,10 +281,22 @@ void ItemUseOutOfBattle_Bike(u8 taskId)
 
 static void ItemUseOnFieldCB_Bike(u8 taskId)
 {
-    if (GetItemSecondaryId(gSpecialVar_ItemId) == MACH_BIKE)
-        GetOnOffBike(PLAYER_AVATAR_FLAG_MACH_BIKE);
-    else // ACRO_BIKE
-        GetOnOffBike(PLAYER_AVATAR_FLAG_ACRO_BIKE);
+    gUnusedBikeCameraAheadPanback = FALSE;
+
+    gSaveBlock2Ptr->playerBike = MACH_BIKE;
+    if (gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_BIKE)
+    {
+        SetPlayerAvatarTransitionFlags(PLAYER_AVATAR_FLAG_ON_FOOT);
+        Overworld_ClearSavedMusic();
+        Overworld_PlaySpecialMapMusic();
+    }
+    else
+    {
+        gSaveBlock2Ptr->playerBike = GetItemSecondaryId(gSpecialVar_ItemId);
+        SetPlayerAvatarTransitionFlags(PLAYER_AVATAR_FLAG_BIKE);
+        Overworld_SetSavedMusic(MUS_CYCLING);
+        Overworld_ChangeMusicTo(MUS_CYCLING);
+    }
 
     FollowerNPC_HandleBike();
     ScriptUnfreezeObjectEvents();
@@ -1611,6 +1626,40 @@ void ItemUseOutOfBattle_TownMap(u8 taskId)
     {
         // TODO: handle key items with callbacks to menus allow to be used by registering them.
         DisplayDadsAdviceCannotUseItemMessage(taskId, gTasks[taskId].tUsingRegisteredKeyItem);
+    }
+}
+
+void ItemUseOutOfBattle_OutfitBox(u8 taskId)
+{
+    if (MenuHelpers_IsLinkActive() == TRUE)
+    {
+        DisplayDadsAdviceCannotUseItemMessage(taskId, gTasks[taskId].tUsingRegisteredKeyItem);
+    }
+    else if (gTasks[taskId].tUsingRegisteredKeyItem != TRUE)
+    {
+        gBagMenu->newScreenCallback = CB2_OpenOutfitBoxFromBag;
+        Task_FadeAndCloseBagMenu(taskId);
+    }
+    else
+    {
+        gFieldCallback = FieldCB_ReturnToFieldNoScript;
+        FadeScreen(FADE_TO_BLACK, 0);
+        gTasks[taskId].func = Task_OpenRegisteredOutfitBox;
+    }
+}
+
+static void CB2_OpenOutfitBoxFromBag(void)
+{
+    OpenOutfitMenu(CB2_ReturnToBagMenuPocket);
+}
+
+static void Task_OpenRegisteredOutfitBox(u8 taskId)
+{
+    if (!gPaletteFade.active)
+    {
+        CleanupOverworldWindowsAndTilemaps();
+        OpenOutfitMenu(CB2_ReturnToField);
+        DestroyTask(taskId);
     }
 }
 

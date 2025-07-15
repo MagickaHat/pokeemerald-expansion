@@ -8,8 +8,7 @@
 struct FollowerNPCSpriteGraphics
 {
     u16 normalId;
-    u16 machBikeId;
-    u16 acroBikeId;
+    u16 bikeId;
     u16 surfId;
     u16 underwaterId;
 };
@@ -35,8 +34,7 @@ enum FollowerNPCDataTypes
 enum FollowerNPCSpriteTypes
 {
     FOLLOWER_NPC_SPRITE_INDEX_NORMAL,
-    FOLLOWER_NPC_SPRITE_INDEX_MACH_BIKE,
-    FOLLOWER_NPC_SPRITE_INDEX_ACRO_BIKE,
+    FOLLOWER_NPC_SPRITE_INDEX_BIKE,
     FOLLOWER_NPC_SPRITE_INDEX_SURF,
     FOLLOWER_NPC_SPRITE_INDEX_UNDERWATER,
 };
