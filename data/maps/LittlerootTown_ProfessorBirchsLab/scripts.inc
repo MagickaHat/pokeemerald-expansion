@@ -109,12 +109,11 @@ LittlerootTown_ProfessorBirchsLab_EventScript_GiveStarterEvent::
 	bufferleadmonspeciesname STR_VAR_1
 	speakername CommonName_Text_Birch
 	createfieldmugshot MUGSHOT_BIRCH, EMOTE_HAPPY
-	message LittlerootTown_ProfessorBirchsLab_Text_LikeYouToHavePokemon
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_LikeYouToHavePokemon, MSGBOX_DEFAULT
 	removefieldmugshot
 	waitmessage
 	playfanfare MUS_OBTAIN_ITEM
 	waitfanfare
-	speakername CommonName_Text_Birch
 	msgbox LittlerootTown_ProfessorBirchsLab_Text_WhyNotGiveNicknameToMon, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, YES, LittlerootTown_ProfessorBirchsLab_EventScript_NicknameStarter
 	goto_if_eq VAR_RESULT, NO, LittlerootTown_ProfessorBirchsLab_EventScript_GoSeeRival
@@ -128,7 +127,9 @@ LittlerootTown_ProfessorBirchsLab_EventScript_NicknameStarter::
 
 LittlerootTown_ProfessorBirchsLab_EventScript_GoSeeRival::
 	speakername CommonName_Text_Birch
+	createfieldmugshot MUGSHOT_BIRCH, EMOTE_HAPPY
 	msgbox LittlerootTown_ProfessorBirchsLab_Text_MightBeGoodIdeaToGoSeeRival, MSGBOX_YESNO
+	removefieldmugshot
 	goto_if_eq VAR_RESULT, YES, LittlerootTown_ProfessorBirchsLab_EventScript_AgreeToSeeRival
 	goto_if_eq VAR_RESULT, NO, LittlerootTown_ProfessorBirchsLab_EventScript_DeclineSeeingRival
 	end

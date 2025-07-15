@@ -122,7 +122,7 @@ static void UpdateCursorPosition(void);
 static const u8 sText_OutfitLocked[] = _("???");
 static const u8 sText_OutfitLockedMsg[] =
 _(
-    "You don't have this OUTFIT yet.\n"
+    "You don't have this outfit yet.\n"
     "Unlock it to be able to use it."
 );
 
@@ -143,7 +143,7 @@ _(
 
 static const u8 sText_OutfitError_Diving[] =
 _(
-    "while\ndiving! Have common sense!" //! :masuda:
+    "while\ndiving! You'll get soaked!" 
 );
 
 static const u8 sText_OutfitError_Default[] = _(
@@ -599,11 +599,11 @@ static void SpriteCB_Indicator(struct Sprite *s)
 
 static inline void ForEachCB_DrawIndicatorSprites(u32 idx, u32 col, u32 row)
 {
-    u32 x, y, i;
+    u32 x, y;
     if (idx >= sOutfitMenu->listCount)
         return;
 
-    i = sOutfitMenu->grid->topLeftItemIndex + idx;
+
     x = ((col % GRID_COLS) < ARRAY_COUNT(sGridPosX)) ? sGridPosX[col] : sGridPosX[0];
     y = ((row % GRID_ROWS) < ARRAY_COUNT(sGridPosY)) ? sGridPosY[row] : sGridPosY[0];
     x -= 8, y -= 8;

@@ -41,10 +41,10 @@ Route103_EventScript_RivalMay::
 	createfieldmugshot MUGSHOT_MAY, EMOTE_HAPPY
 	msgbox Route103_Text_MayLetsBattle, MSGBOX_DEFAULT
 	switch VAR_STARTER_MON
+	removefieldmugshot
 	case 0, Route103_EventScript_StartMayBattleTreecko
 	case 1, Route103_EventScript_StartMayBattleTorchic
 	case 2, Route103_EventScript_StartMayBattleMudkip
-	removefieldmugshot
 	end
 
 Route103_EventScript_RivalBrendan::
@@ -64,10 +64,10 @@ Route103_EventScript_RivalBrendan::
 	createfieldmugshot MUGSHOT_BRENDAN, EMOTE_HAPPY
 	msgbox Route103_Text_BrendanLetsBattle, MSGBOX_DEFAULT
 	switch VAR_STARTER_MON
+	removefieldmugshot
 	case 0, Route103_EventScript_StartBrendanBattleTreecko
 	case 1, Route103_EventScript_StartBrendanBattleTorchic
 	case 2, Route103_EventScript_StartBrendanBattleMudkip
-	removefieldmugshot
 	end
 
 Route103_EventScript_StartMayBattleTreecko::

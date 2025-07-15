@@ -404,13 +404,13 @@ RivalsHouse_1F_Text_BrendanWhoAreYou:
 	.string "{CREATE_MUGSHOT MUGSHOT_BRENDAN EMOTE_BLUSH}"
 	.string "Huh? Hey, {PLAYER}, don't you have\n"
 	.string "a Pokémon?\p"
-	.string "{CREATE_MUGSHOT MUGSHOT_MAY EMOTE_CONFUSED}"
+	.string "{CREATE_MUGSHOT MUGSHOT_BRENDAN EMOTE_CONFUSED}"
 	.string "Do you want me to go catch you one?\p"
-	.string "{CREATE_MUGSHOT MUGSHOT_MAY EMOTE_SAD}"
+	.string "{CREATE_MUGSHOT MUGSHOT_BRENDAN EMOTE_SAD}"
 	.string "Aw, darn, I forgot…\p"
 	.string "I'm supposed to go help my dad catch\n"
 	.string "some wild Pokémon.\p"
-	.string "{CREATE_MUGSHOT MUGSHOT_MAY EMOTE_HAPPY}"
+	.string "{CREATE_MUGSHOT MUGSHOT_BRENDAN EMOTE_HAPPY}"
 	.string "Some other time, okay?$"
 
 RivalsHouse_1F_Text_DoYouHavePokemon:
