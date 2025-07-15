@@ -603,7 +603,6 @@ static inline void ForEachCB_DrawIndicatorSprites(u32 idx, u32 col, u32 row)
     if (idx >= sOutfitMenu->listCount)
         return;
 
-
     x = ((col % GRID_COLS) < ARRAY_COUNT(sGridPosX)) ? sGridPosX[col] : sGridPosX[0];
     y = ((row % GRID_ROWS) < ARRAY_COUNT(sGridPosY)) ? sGridPosY[row] : sGridPosY[0];
     x -= 8, y -= 8;
