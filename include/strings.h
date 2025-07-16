@@ -2632,4 +2632,7 @@ extern const u8 gText_PokevialHasDoses[];
 extern const u8 gText_PokevialIsEmpty[];
 extern const u8 gText_YourPkmnWereRestored[];
 
+// Stat Editor
+extern const u8 gText_StatEditor[];
+
 #endif // GUARD_STRINGS_H

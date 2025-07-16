@@ -4003,3 +4003,8 @@ static const u8 sPokevialDesc[] = _(
     "Restores all\n"
     "Pokémon to full\n"
     "health.");
+
+static const u8 sAbilityChangerDesc[] = _(
+    "A miracle mint that\n"
+    "can change a Pokémon's\n"
+    "ability.");
