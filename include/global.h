@@ -1056,6 +1056,12 @@ struct ExternalEventFlags
 
 } __attribute__((packed));/*size = 0x15*/
 
+struct Pokevial
+{
+    u8 Size : 4;
+    u8 Dose : 4;
+};
+
 struct SaveBlock1
 {
     /*0x00*/ struct Coords16 pos;
@@ -1167,6 +1173,7 @@ struct SaveBlock1
     /*0x3???*/ struct TrainerHillSave trainerHill;
 #endif //FREE_TRAINER_HILL
     /*0x3???*/ struct WaldaPhrase waldaPhrase;
+    /*      */ struct Pokevial pokevial;
     /* size = 0x3D88 */
 };
 

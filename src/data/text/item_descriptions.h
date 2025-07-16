@@ -3998,3 +3998,8 @@ static const u8 sOutfitBoxDesc[] = _(
     "A box for storing\n"
     "your collections of\n"
     "Outfits safely.");
+
+static const u8 sPokevialDesc[] = _(
+    "Restores all\n"
+    "Pokémon to full\n"
+    "health.");

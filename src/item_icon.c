@@ -8,6 +8,7 @@
 #include "move.h"
 #include "sprite.h"
 #include "constants/items.h"
+#include "pokevial.h"
 
 // EWRAM vars
 EWRAM_DATA u8 *gItemIconDecompressionBuffer = NULL;
