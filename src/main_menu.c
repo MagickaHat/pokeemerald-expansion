@@ -474,8 +474,8 @@ static const union AffineAnimCmd *const sSpriteAffineAnimTable_PlayerShrink[] =
 };
 
 static const struct MenuAction sMenuActions_Gender[] = {
-    {COMPOUND_STRING("Boy"), {NULL}},
-    {COMPOUND_STRING("Girl"), {NULL}}
+    {COMPOUND_STRING("Brendan"), {NULL}},
+    {COMPOUND_STRING("May"), {NULL}}
 };
 
 static const u8 *const sMalePresetNames[] = {
@@ -1901,7 +1901,7 @@ static void SpriteCB_MovePlayerDownWhileShrinking(struct Sprite *sprite)
 
 static u8 NewGameBirchSpeech_CreateLotadSprite(u8 x, u8 y)
 {
-    return CreateMonPicSprite_Affine(SPECIES_WOOPER_PALDEA, FALSE, 0, MON_PIC_AFFINE_FRONT, x, y, 14, TAG_NONE);
+    return CreateMonPicSprite_Affine(SPECIES_LOTAD, FALSE, 0, MON_PIC_AFFINE_FRONT, x, y, 14, TAG_NONE);
 }
 
 static void AddBirchSpeechObjects(u8 taskId)
