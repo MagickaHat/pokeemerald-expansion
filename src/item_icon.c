@@ -174,6 +174,9 @@ const void *GetItemIconPic(u16 itemId)
         return gItemIcon_HM;
     }
 
+    if (itemId == ITEM_POKEVIAL)
+        return PokevialGetDoseIcon();
+
     return gItemsInfo[itemId].iconPic;
 }
 
