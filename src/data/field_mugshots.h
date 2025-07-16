@@ -57,6 +57,13 @@ static const u32 sFieldMugshotGfx_WallySad[] = INCBIN_U32("graphics/field_mugsho
 static const u16 sFieldMugshotPal_WallySad[] = INCBIN_U16("graphics/field_mugshots/wally/sad.gbapal");
 static const u32 sFieldMugshotGfx_WallyEcstatic[] = INCBIN_U32("graphics/field_mugshots/wally/ecstatic.4bpp.lz");
 static const u16 sFieldMugshotPal_WallyEcstatic[] = INCBIN_U16("graphics/field_mugshots/wally/ecstatic.gbapal");
+//Norman
+static const u32 sFieldMugshotGfx_NormanNeutral[] = INCBIN_U32("graphics/field_mugshots/norman/neutral.4bpp.lz");
+static const u16 sFieldMugshotPal_NormanNeutral[] = INCBIN_U16("graphics/field_mugshots/norman/neutral.gbapal");
+static const u32 sFieldMugshotGfx_NormanHappy[] = INCBIN_U32("graphics/field_mugshots/norman/happy.4bpp.lz");
+static const u16 sFieldMugshotPal_NormanHappy[] = INCBIN_U16("graphics/field_mugshots/norman/happy.gbapal");
+static const u32 sFieldMugshotGfx_NormanEcstatic[] = INCBIN_U32("graphics/field_mugshots/norman/ecstatic.4bpp.lz");
+static const u16 sFieldMugshotPal_NormanEcstatic[] = INCBIN_U16("graphics/field_mugshots/norman/ecstatic.gbapal");
 
 struct MugshotGfx
 {
@@ -219,6 +226,24 @@ static const struct MugshotGfx sFieldMugshots[MUGSHOT_COUNT][EMOTE_COUNT] =
         {
             .gfx = sFieldMugshotGfx_WallyEcstatic,
             .pal = sFieldMugshotPal_WallyEcstatic,
+        },
+    },
+    [MUGSHOT_NORMAN] =
+    {
+        [EMOTE_NEUTRAL] =
+        {
+            .gfx = sFieldMugshotGfx_NormanNeutral,
+            .pal = sFieldMugshotPal_NormanNeutral,
+        },
+        [EMOTE_HAPPY] =
+        {
+            .gfx = sFieldMugshotGfx_NormanHappy,
+            .pal = sFieldMugshotPal_NormanHappy,
+        },
+        [EMOTE_ECSTATIC] =
+        {
+            .gfx = sFieldMugshotGfx_NormanEcstatic,
+            .pal = sFieldMugshotPal_NormanEcstatic,
         },
     },
 };

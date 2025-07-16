@@ -256,6 +256,12 @@ static const struct MapPreviewScreen sMapPreviewScreenData[MPS_COUNT] = {
         .type = MPS_TYPE_CAVE,
         .flagId = MPS_FLAG_NULL,
         .image = IMG_MONEAN_CHAMBER
+    },
+    [MPS_PETALBURG_WOODS] = {
+        .mapsec = MAPSEC_PETALBURG_WOODS,
+        .type = MPS_TYPE_FADE_IN,
+        .flagId = MPS_FLAG_NULL,
+        .image = IMG_VIRIDIAN_FOREST
     }
 };
 

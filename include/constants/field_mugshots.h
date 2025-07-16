@@ -8,7 +8,8 @@
 #define MUGSHOT_MAY   4
 #define MUGSHOT_BRENDAN 5
 #define MUGSHOT_WALLY 6
-#define MUGSHOT_COUNT 7
+#define MUGSHOT_NORMAN 7
+#define MUGSHOT_COUNT 8
 
 #define EMOTE_NORMAL  0
 #define EMOTE_ALT     1
