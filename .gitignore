@@ -57,3 +57,7 @@ tools/compresSmol/compresSmolTilemap
 *.fastSmol
 *.smolTM
 __pycache__
+/.vs
+*.xlsx
+*.bak
+*.xcf
