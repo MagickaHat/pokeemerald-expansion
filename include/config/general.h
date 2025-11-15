@@ -67,7 +67,7 @@
 #define GEN_LATEST GEN_9
 
 // General settings
-#define EXPANSION_INTRO              TRUE    // If TRUE, a custom RHH intro will play after the vanilla copyright screen.
+#define EXPANSION_INTRO              FALSE   // If TRUE, a custom RHH intro will play after the vanilla copyright screen.
 #define HQ_RANDOM                    TRUE    // If TRUE, replaces the default RNG with an implementation of SFC32 RNG. May break code that relies on RNG.
 #define AUTO_SCROLL_TEXT             FALSE   // If TRUE, text will automatically scroll to the next line after NUM_FRAMES_AUTO_SCROLL_DELAY. Players can still press A_BUTTON or B_BUTTON to scroll on their own.
 #define NUM_FRAMES_AUTO_SCROLL_DELAY 49
@@ -83,5 +83,5 @@
 // Naming Screen
 #define AUTO_LOWERCASE_KEYBOARD      GEN_LATEST  // Starting in GEN_6, after entering the first uppercase character, the keyboard switches to lowercase letters.
 
-#define SAVE_TYPE_ERROR_SCREEN              FALSE   // When enabled, this shows an error message when the game is loaded on a cart without a flash chip or on an emulator with the wrong save type setting instead of crashing.
+#define SAVE_TYPE_ERROR_SCREEN              TRUE  // When enabled, this shows an error message when the game is loaded on a cart without a flash chip or on an emulator with the wrong save type setting instead of crashing.
 #endif // GUARD_CONFIG_GENERAL_H

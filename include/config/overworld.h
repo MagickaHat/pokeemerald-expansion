@@ -3,7 +3,7 @@
 
 // Movement config
 #define OW_RUNNING_INDOORS          GEN_LATEST  // In Gen4+, players are allowed to run indoors.
-#define SLOW_MOVEMENT_ON_STAIRS     FALSE       // If enabled, the player will move slower up/down stairs like in FR
+#define SLOW_MOVEMENT_ON_STAIRS     TRUE        // If enabled, the player will move slower up/down stairs like in FR
 
 // Other settings
 #define OW_POISON_DAMAGE                GEN_LATEST // In Gen4, Pokémon no longer faint from Poison in the overworld. In Gen5+, they no longer take damage at all.
@@ -56,10 +56,10 @@
                                                   // 16x32, 32x32, 64x64 etc are fine
 #define OW_MON_WANDER_WALK             TRUE       // If true, OW pokemon with MOVEMENT_TYPE_WANDER will walk-in-place in between steps.
 // Follower Pokémon
-#define OW_FOLLOWERS_ENABLED           FALSE      // Enables follower Pokémon, HGSS style. Requires OW_POKEMON_OBJECT_EVENTS. Note that additional scripting may be required for them to be fully supported!
+#define OW_FOLLOWERS_ENABLED           TRUE       // Enables follower Pokémon, HGSS style. Requires OW_POKEMON_OBJECT_EVENTS. Note that additional scripting may be required for them to be fully supported!
 #define OW_FOLLOWERS_BOBBING           TRUE       // If TRUE, follower Pokémon will bob up and down during their idle & walking animations
 #define OW_FOLLOWERS_POKEBALLS         TRUE       // If TRUE, follower Pokémon will emerge from the Poké Ball they are stored in, instead of a normal Poké Ball
-#define OW_FOLLOWERS_WEATHER_FORMS     FALSE      // If TRUE, Castform and Cherrim gain FORM_CHANGE_OVERWORLD_WEATHER, which will make them transform in the overworld based on the weather.
+#define OW_FOLLOWERS_WEATHER_FORMS     TRUE       // If TRUE, Castform and Cherrim gain FORM_CHANGE_OVERWORLD_WEATHER, which will make them transform in the overworld based on the weather.
 #define OW_FOLLOWERS_COPY_WILD_PKMN    FALSE      // If TRUE, follower Pokémon that know Transform or have Illusion/Imposter will copy wild Pokémon at random.
 #define OW_BATTLE_ONLY_FORMS           TRUE       // If TRUE, loads overworld sprites for battle-only forms like Mega Evos. Requires OW_POKEMON_OBJECT_EVENTS.
 #define B_FLAG_FOLLOWERS_DISABLED      0          // Enables / Disables followers by using a flag. Helpful to disable followers for a period of time.
@@ -88,9 +88,9 @@
 
 //Time
 #define OW_TIMES_OF_DAY                 GEN_LATEST   // Different generations have the times of day change at different times.
-#define OW_USE_FAKE_RTC                 FALSE        // When TRUE, seconds on the in-game clock will only advance once every 60 playTimeVBlanks (every 60 frames).
+#define OW_USE_FAKE_RTC                 TRUE         // When TRUE, seconds on the in-game clock will only advance once every 60 playTimeVBlanks (every 60 frames).
 #define OW_ALTERED_TIME_RATIO           GEN_LATEST   // In GEN_8_PLA, the time in game moves forward 60 seconds for every second in the RTC. In GEN_9, it is 20 seconds. TIME_DEBUG is 1:1, and meant for debugging purposes. This has no effect if OW_USE_FAKE_RTC is FALSE.
-#define OW_TIME_OF_DAY_ENCOUNTERS       FALSE        // If TRUE, will allow the user to define and use different encounter tables based on the time of day.
+#define OW_TIME_OF_DAY_ENCOUNTERS       TRUE         // If TRUE, will allow the user to define and use different encounter tables based on the time of day.
 #define OW_TIME_OF_DAY_DISABLE_FALLBACK FALSE        // If TRUE, if the encounter table for a specific map and time is empty, the area will have no encounters instead of falling back to the vanilla map and time.
 #define OW_TIME_OF_DAY_FALLBACK         TIME_MORNING // The time of day that encounter tables fall back to.
 
