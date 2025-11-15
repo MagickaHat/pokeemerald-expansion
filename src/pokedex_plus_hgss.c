@@ -200,9 +200,9 @@ static const u8 sText_Stats_eggGroup_UNKNOWN[] = _("???");
 static const u8 sText_Dex_SEEN[] = _("Seen");
 static const u8 sText_Dex_OWN[] = _("Own");
 
-static const u8 sText_EVO_Buttons[] = _("{DPAD_UPDOWN}EVOs  {A_BUTTON}Check");
+static const u8 sText_EVO_Buttons[] = _("{DPAD_UPDOWN}EVOs  {A_BUTTON}CHECK");
 static const u8 sText_EVO_Buttons_Decapped[] = _("{DPAD_UPDOWN}Evos  {A_BUTTON}Check");
-static const u8 sText_EVO_Buttons_PE[] = _("{DPAD_UPDOWN}EVOs  {A_BUTTON}Check  {START_BUTTON}FORMs");
+static const u8 sText_EVO_Buttons_PE[] = _("{DPAD_UPDOWN}EVOs  {A_BUTTON}CHECK  {START_BUTTON}FORMs");
 static const u8 sText_EVO_Buttons_Decapped_PE[] = _("{DPAD_UPDOWN}Evos  {A_BUTTON}Check  {START_BUTTON}Forms");
 static const u8 sText_EVO_Name[] = _("{STR_VAR_3}:");
 static const u8 sText_EVO_PreEvo[] = _("{STR_VAR_1} evolves from {STR_VAR_2}");
@@ -222,9 +222,9 @@ static const u8 sText_EVO_RECOIL_DAMAGE_FEMALE[] = _("{LV}{UP_ARROW} with {STR_V
 static const u8 sText_EVO_DEFEAT_THREE_WITH_ITEM[] = _("{LV}{UP_ARROW} defeating 3 {STR_VAR_3} holding {STR_VAR_2}");
 static const u8 sText_EVO_NONE[] = _("{STR_VAR_1} has no evolution.");
 
-static const u8 sText_FORMS_Buttons_PE[] = _("{A_BUTTON}Form Mode  {START_BUTTON}Evos");
+static const u8 sText_FORMS_Buttons_PE[] = _("{A_BUTTON}FORM MODE  {START_BUTTON}EVOs");
 static const u8 sText_FORMS_Buttons_Decapped_PE[] = _("{START_BUTTON}Evos");
-static const u8 sText_FORMS_Buttons_Submenu_PE[] = _("{DPAD_NONE}Forms {A_BUTTON}Check {START_BUTTON}Evos");
+static const u8 sText_FORMS_Buttons_Submenu_PE[] = _("{DPAD_NONE}FORMs {A_BUTTON}CHECK {START_BUTTON}EVOs");
 static const u8 sText_FORMS_Buttons_Submenu_Decapped_PE[] = _("{START_BUTTON}Evos");
 static const u8 sText_FORMS_NONE[] = _("{STR_VAR_1} has no alternate forms.");
 static const u8 sText_PlusSymbol[] = _("+");
@@ -6639,61 +6639,65 @@ static void PrintEvolutionTargetSpeciesAndMethod(u8 taskId, u16 species, u8 dept
 
                 switch((enum EvolutionConditions)evolutions[i].params[j].condition)
                 {
-                    case MON_MALE:   StringAppend(gStringVar4, COMPOUND_STRING("Male"));   break;
-                    case MON_FEMALE: StringAppend(gStringVar4, COMPOUND_STRING("Female")); break;
-                }
-                break;
-            case IF_MIN_FRIENDSHIP:
-                StringAppend(gStringVar4, COMPOUND_STRING("{UP_ARROW_2}friendship"));
-                break;
-            case IF_ATK_GT_DEF:
-                StringAppend(gStringVar4, COMPOUND_STRING("Atk > Def"));
-                break;
-            case IF_ATK_EQ_DEF:
-                StringAppend(gStringVar4, COMPOUND_STRING("Atk = Def"));
-                break;
-            case IF_ATK_LT_DEF:
-                StringAppend(gStringVar4, COMPOUND_STRING("Atk < Def"));
-                break;
-            case IF_TIME:
-                switch(evolutions[i].params[j].arg1)
-                {
-                case TIME_MORNING: StringAppend(gStringVar4, COMPOUND_STRING("Morning")); break;
-                case TIME_DAY:     StringAppend(gStringVar4, COMPOUND_STRING("Day"));     break;
-                case TIME_EVENING: StringAppend(gStringVar4, COMPOUND_STRING("Evening")); break;
-                case TIME_NIGHT:   StringAppend(gStringVar4, COMPOUND_STRING("Night"));   break;
-                }
-                break;
-            case IF_NOT_TIME:
-                switch(evolutions[i].params[j].arg1)
-                {
-                case TIME_MORNING: StringAppend(gStringVar4, COMPOUND_STRING("Not Morning")); break;
-                case TIME_DAY:     StringAppend(gStringVar4, COMPOUND_STRING("Not Day"));     break;
-                case TIME_EVENING: StringAppend(gStringVar4, COMPOUND_STRING("Not Evening")); break;
-                case TIME_NIGHT:   StringAppend(gStringVar4, COMPOUND_STRING("Day"));         break; // More intuitive than "Not Night"
-                }
-                break;
-            case IF_HOLD_ITEM:
-                StringAppend(gStringVar4, COMPOUND_STRING("holds "));
-                if (isAlcremie && IsItemSweet(evolutions[i].params[j].arg1))
-                {
-                    StringAppend(gStringVar4, COMPOUND_STRING("Sweet")); //item
-                }
-                else
-                {
-                    CopyItemName(evolutions[i].params[j].arg1, gStringVar2); //item
-                    StringAppend(gStringVar4, gStringVar2);
-                }
-                break;
-            // Gen 3
-            case IF_PID_UPPER_MODULO_10_GT:
-            case IF_PID_UPPER_MODULO_10_EQ:
-            case IF_PID_UPPER_MODULO_10_LT:
-                arg = evolutions[i].params[j].arg1;
-                    if ((enum EvolutionConditions)evolutions[i].params[j].condition == IF_PID_UPPER_MODULO_10_GT
-                        && arg < 10 && arg >= 0)
-                        arg = 9 - arg;
-                    else if ((enum EvolutionConditions)evolutions[i].params[j].condition == IF_PID_UPPER_MODULO_10_EQ
+                // Gen 2
+                case IF_GENDER:
+                    switch(evolutions[i].params[j].arg1)
+                    {
+                        case MON_MALE:   StringAppend(gStringVar4, COMPOUND_STRING("Male"));   break;
+                        case MON_FEMALE: StringAppend(gStringVar4, COMPOUND_STRING("Female")); break;
+                    }
+                    break;
+                case IF_MIN_FRIENDSHIP:
+                    StringAppend(gStringVar4, COMPOUND_STRING("{UP_ARROW_2}friendship"));
+                    break;
+                case IF_ATK_GT_DEF:
+                    StringAppend(gStringVar4, COMPOUND_STRING("Atk > Def"));
+                    break;
+                case IF_ATK_EQ_DEF:
+                    StringAppend(gStringVar4, COMPOUND_STRING("Atk = Def"));
+                    break;
+                case IF_ATK_LT_DEF:
+                    StringAppend(gStringVar4, COMPOUND_STRING("Atk < Def"));
+                    break;
+                case IF_TIME:
+                    switch(evolutions[i].params[j].arg1)
+                    {
+                    case TIME_MORNING: StringAppend(gStringVar4, COMPOUND_STRING("Morning")); break;
+                    case TIME_DAY:     StringAppend(gStringVar4, COMPOUND_STRING("Day"));     break;
+                    case TIME_EVENING: StringAppend(gStringVar4, COMPOUND_STRING("Evening")); break;
+                    case TIME_NIGHT:   StringAppend(gStringVar4, COMPOUND_STRING("Night"));   break;
+                    }
+                    break;
+                case IF_NOT_TIME:
+                    switch(evolutions[i].params[j].arg1)
+                    {
+                    case TIME_MORNING: StringAppend(gStringVar4, COMPOUND_STRING("Not Morning")); break;
+                    case TIME_DAY:     StringAppend(gStringVar4, COMPOUND_STRING("Not Day"));     break;
+                    case TIME_EVENING: StringAppend(gStringVar4, COMPOUND_STRING("Not Evening")); break;
+                    case TIME_NIGHT:   StringAppend(gStringVar4, COMPOUND_STRING("Day"));         break; // More intuitive than "NOT Night"
+                    }
+                    break;
+                case IF_HOLD_ITEM:
+                    StringAppend(gStringVar4, COMPOUND_STRING("holds "));
+                    if (isAlcremie && IsItemSweet(evolutions[i].params[j].arg1))
+                    {
+                        StringAppend(gStringVar4, COMPOUND_STRING("Sweet")); //item
+                    }
+                    else
+                    {
+                        CopyItemName(evolutions[i].params[j].arg1, gStringVar2); //item
+                        StringAppend(gStringVar4, gStringVar2);
+                    }
+                    break;
+                // Gen 3
+                case IF_PID_UPPER_MODULO_10_GT:
+                case IF_PID_UPPER_MODULO_10_EQ:
+                case IF_PID_UPPER_MODULO_10_LT:
+                    arg = evolutions[i].params[j].arg1;
+                        if ((enum EvolutionConditions)evolutions[i].params[j].condition == IF_PID_UPPER_MODULO_10_GT
+                            && arg < 10 && arg >= 0)
+                            arg = 9 - arg;
+                        else if ((enum EvolutionConditions)evolutions[i].params[j].condition == IF_PID_UPPER_MODULO_10_EQ
                              && arg < 10 && arg >= 0)
                             arg = 1;
                     ConvertIntToDecimalStringN(gStringVar2, arg * 10, STR_CONV_MODE_LEFT_ALIGN, 3);
