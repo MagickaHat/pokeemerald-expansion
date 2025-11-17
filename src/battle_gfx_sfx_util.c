@@ -20,6 +20,7 @@
 #include "party_menu.h"
 #include "m4a.h"
 #include "decompress.h"
+#include "dynamic_palettes.h"
 #include "data.h"
 #include "palette.h"
 #include "contest.h"
@@ -642,7 +643,7 @@ void BattleLoadMonSpriteGfx(struct Pokemon *mon, u32 battler)
                              gMonSpritesGfxPtr->spritesGfx[position],
                              species, personalityValue);
 
-    paletteOffset = OBJ_PLTT_ID(battler);
+    paletteOffset = OBJ_PLTT_ID(battlerId);
 
     if (gBattleSpritesDataPtr->battlerData[battler].transformSpecies == SPECIES_NONE)
         paletteData = GetMonFrontSpritePal(mon);
@@ -690,12 +691,29 @@ void DecompressTrainerFrontPic(u16 frontPicId, u8 battler)
     LoadSpritePalette(&gTrainerSprites[frontPicId].palette);
 }
 
-void DecompressTrainerBackPic(u16 backPicId, u8 battler)
+void DecompressTrainerBackPic(u16 backPicId, u8 battlerId)
+{
+    u8 position = GetBattlerPosition(battlerId);
+    DecompressPicFromTable_2(&gTrainerBackPicTable[backPicId],
+                             gMonSpritesGfxPtr->sprites.ptr[position],
+                             SPECIES_NONE);
+
+    // DYNPAL: Override pallete load for player back sprite (UPDATE IF USING RHH EXPANSION)
+    if (backPicId == TRAINER_BACK_PIC_BRENDAN || backPicId == TRAINER_BACK_PIC_MAY) {
+        DynPal_LoadPaletteByOffset(sDynPalPlayerBattleBack, OBJ_PLTT_ID(battlerId));
+    }
+    else {
+        LoadCompressedPalette(gTrainerBackPicPaletteTable[backPicId].data,
+            OBJ_PLTT_ID(battlerId), PLTT_SIZE_4BPP);
+    }
+}
+
+void BattleGfxSfxDummy3(u8 gender)
 {
     u8 position = GetBattlerPosition(battler);
     CopyTrainerBackspriteFramesToDest(backPicId, gMonSpritesGfxPtr->spritesGfx[position]);
     LoadPalette(gTrainerBacksprites[backPicId].palette.data,
-                          OBJ_PLTT_ID(battler), PLTT_SIZE_4BPP);
+                          OBJ_PLTT_ID(battlerId), PLTT_SIZE_4BPP);
 }
 
 void FreeTrainerFrontPicPalette(u16 frontPicId)
@@ -1020,7 +1038,7 @@ void BattleLoadSubstituteOrMonSpriteGfx(u8 battler, bool8 loadMonSprite)
             Dma3CopyLarge32_(gMonSpritesGfxPtr->spritesGfx[position], &gMonSpritesGfxPtr->spritesGfx[position][MON_PIC_SIZE * i], MON_PIC_SIZE);
         }
 
-        palOffset = OBJ_PLTT_ID(battler);
+        palOffset = OBJ_PLTT_ID(battlerId);
         LoadPalette(gBattleAnimSpritePal_Substitute, palOffset, PLTT_SIZE_4BPP);
     }
     else

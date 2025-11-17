@@ -12,6 +12,7 @@
 #include "battle_gimmick.h"
 #include "bg.h"
 #include "data.h"
+#include "dynamic_palettes.h"
 #include "item.h"
 #include "item_menu.h"
 #include "link.h"
